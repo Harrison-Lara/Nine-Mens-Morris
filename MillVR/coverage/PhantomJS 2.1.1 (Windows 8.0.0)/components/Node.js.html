@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for components\Node.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">components/</a> Node.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">70.49% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>43/61</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">84.62% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>33/39</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>11/11</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">18.18% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>4/22</span>
+      </div>
+      <div class='fl pad1y'>
+        <span class="strong">9 statements, 5 functions, 19 branches</span>
+        <span class="quiet">Ignored</span>  &nbsp;&nbsp;&nbsp;&nbsp;
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
+import 'normalize.css';
+import 'styles/App.css'
+&nbsp;
+class Node extends React.Component {
+&nbsp;
+  nodeSelected() {
+<span class="cstat-no" title="statement not covered" >    t</span>his.props.nodeIsClicked(this.props.index);
+  }
+&nbsp;
+  render() {
+<span class="cstat-no" title="statement not covered" >    c</span>onst position = this.props.position;
+<span class="cstat-no" title="statement not covered" >    c</span>onst player = this.props.currentPlayer;
+<span class="cstat-no" title="statement not covered" >    l</span>et gameStyles = {};
+<span class="cstat-no" title="statement not covered" >    if (player == 0) {</span>
+<span class="cstat-no" title="statement not covered" >      g</span>ameStyles.width = 20;
+<span class="cstat-no" title="statement not covered" >      g</span>ameStyles.height = 20;
+<span class="cstat-no" title="statement not covered" >      g</span>ameStyles.bkg = '#ffffff';
+    } else <span class="cstat-no" title="statement not covered" >if (player == 1) {</span>
+<span class="cstat-no" title="statement not covered" >      g</span>ameStyles.width = 30;
+<span class="cstat-no" title="statement not covered" >      g</span>ameStyles.height = 30;
+<span class="cstat-no" title="statement not covered" >      g</span>ameStyles.bkg = 'blue';
+    } else <span class="cstat-no" title="statement not covered" >if (player == 2) {</span>
+<span class="cstat-no" title="statement not covered" >      g</span>ameStyles.width = 30;
+<span class="cstat-no" title="statement not covered" >      g</span>ameStyles.height = 30;
+<span class="cstat-no" title="statement not covered" >      g</span>ameStyles.bkg = 'black';
+    }
+<span class="cstat-no" title="statement not covered" >    c</span>onst style = { left: position.xPos + '%', top: position.yPos + '%', width: gameStyles.width + 'px', height: gameStyles.height + 'px', backgroundColor: gameStyles.bkg };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    r</span>eturn (
+      &lt;div className='node' style={style} onClick={this.nodeSelected.bind(this)} /&gt;
+    );
+  }
+}
+&nbsp;
+export default Node;
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Oct 05 2019 15:12:12 GMT-0500 (Central Daylight Time)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>
