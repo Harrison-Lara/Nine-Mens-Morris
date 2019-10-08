@@ -11,6 +11,7 @@ Navigate to `http://localhost:4200/`.
 ## CS 449
 
 Team: Vee Are
+
 Contributors: Harrison Lara, Kory Overbay, Alec Shern, Tarsus Arciga
 
 ### Overview
