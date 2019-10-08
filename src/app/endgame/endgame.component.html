@@ -1,0 +1,58 @@
+<h1 mat-dialog-title>EndGame</h1>
+<div mat-dialog-content class="content-wrapper">
+  <p *ngIf="data.winingPlayer">{{data.winingPlayer}} player has won!</p>
+  <p *ngIf="!data.winingPlayer">Draw!</p>
+  <table>
+    <tr>
+      <th>Moves:</th>
+      <td>{{data.moveCount}}</td>
+    </tr>
+    <tr>
+      <th>Time:</th>
+      <td>{{data.timeCounter | number: '1.2-2'}} min</td>
+    </tr>
+    <tr>
+      <th>Gold Player</th>
+      <td>{{data.goldPlayerType}}</td>
+    </tr>
+    <tr>
+      <th>Blue Player</th>
+      <td>{{data.bluePlayerType}}</td>
+    </tr>
+    <tr>
+      <th>Gold Player points</th>
+      <td>{{data.goldPoints}}</td>
+    </tr>
+    <tr>
+      <th>Blue Player points</th>
+      <td>{{data.bluePoints}}</td>
+    </tr>
+    <tr *ngIf="data.goldPlayerType == 'AI'">
+      <th>Gold AI algorithm</th>
+      <td>{{data.goldAlgorithm}}</td>
+    </tr>
+    <tr *ngIf="data.bluePlayerType == 'AI'">
+      <th>Blue AI algorithm</th>
+      <td>{{data.blueAlgorithm}}</td>
+    </tr>
+    <tr *ngIf="data.goldPlayerType == 'AI'">
+      <th>Gold heuristics</th>
+      <td>{{data.goldHeuristics}}</td>
+    </tr>
+    <tr *ngIf="data.bluePlayerType == 'AI'">
+      <th>Blue heuristics</th>
+      <td>{{data.blueHeuristics}}</td>
+    </tr>
+    <tr *ngIf="data.goldPlayerType == 'AI'">
+      <th>Gold path counter</th>
+      <td>{{data.goldAiPathCounter}}</td>
+    </tr>
+    <tr *ngIf="data.bluePlayerType == 'AI'">
+      <th>Blue path counter</th>
+      <td>{{data.blueAiPathCounter}}</td>
+    </tr>
+  </table>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="true">Ok</button>
+</div>

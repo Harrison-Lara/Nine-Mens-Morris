@@ -1,0 +1,175 @@
+<div *ngIf="gameStates[currentIndex]">
+  <mat-toolbar color="warn">
+    <div class="app-wrapper">
+      <button mat-icon-button class="float-left" (click)="reset()">
+        <mat-icon>replay</mat-icon>
+      </button>
+      <button mat-icon-button class="float-right" (click)="openInfoDialog()">
+        <mat-icon>help</mat-icon>
+      </button>
+      <button mat-icon-button [disabled]="currentIndex==0" (click)="undo()">
+        <mat-icon>undo</mat-icon>
+      </button>
+      <button mat-button [matMenuTriggerFor]="menu">Settings</button>
+      <mat-menu #menu="matMenu">
+        <table (click)="$event.stopPropagation()">
+          <tr>
+            <th>Gold Player</th>
+            <td>
+              <mat-button-toggle-group [value]="goldPlayerType" (change)="changePlayerType('GOLD')">
+                <mat-button-toggle value="HUMAN">
+                  HUMAN
+                </mat-button-toggle>
+                <mat-button-toggle value="AI">
+                  AI
+                </mat-button-toggle>
+              </mat-button-toggle-group>
+            </td>
+          </tr>
+          <tr>
+            <th>Blue Player</th>
+            <td>
+              <mat-button-toggle-group [value]="bluePlayerType" (change)="changePlayerType('BLUE')">
+                <mat-button-toggle value="HUMAN">
+                  HUMAN
+                </mat-button-toggle>
+                <mat-button-toggle value="AI">
+                  AI
+                </mat-button-toggle>
+              </mat-button-toggle-group>
+            </td>
+          </tr>
+          <tr>
+            <th>Gold AI algorithm</th>
+            <td>
+              <mat-button-toggle-group [value]="goldAiAlgorithm"
+                (change)="goldAiAlgorithm=='MINI-MAX'?goldAiAlgorithm='ALPHA-BETA':goldAiAlgorithm='MINI-MAX'">
+                <mat-button-toggle value="MINI-MAX">
+                  MINI-MAX
+                </mat-button-toggle>
+                <mat-button-toggle value="ALPHA-BETA">
+                  &alpha;-&beta;
+                </mat-button-toggle>
+              </mat-button-toggle-group>
+            </td>
+          </tr>
+          <tr>
+            <th>Blue AI algorithm</th>
+            <td>
+              <mat-button-toggle-group [value]="blueAiAlgorithm"
+                (change)="blueAiAlgorithm=='MINI-MAX'?blueAiAlgorithm='ALPHA-BETA':blueAiAlgorithm='MINI-MAX'">
+                <mat-button-toggle value="MINI-MAX">
+                  MINI-MAX
+                </mat-button-toggle>
+                <mat-button-toggle value="ALPHA-BETA">
+                  &alpha;-&beta;
+                </mat-button-toggle>
+              </mat-button-toggle-group>
+            </td>
+          </tr>
+          <tr>
+            <th>Gold heuristics</th>
+            <td>
+              <mat-button-toggle-group [value]="goldHeuristics"
+                (change)="goldHeuristics=='NAIVE'?goldHeuristics='ALMOST-MILL':goldHeuristics='NAIVE'">
+                <mat-button-toggle value="NAIVE">
+                  NAIVE
+                </mat-button-toggle>
+                <mat-button-toggle value="ALMOST-MILL">
+                  +/- MILL
+                </mat-button-toggle>
+              </mat-button-toggle-group>
+            </td>
+          </tr>
+          <tr>
+            <th>Blue heuristics</th>
+            <td>
+              <mat-button-toggle-group [value]="blueHeuristics"
+                (change)="blueHeuristics=='NAIVE'?blueHeuristics='ALMOST-MILL':blueHeuristics='NAIVE'">
+                <mat-button-toggle value="NAIVE">
+                  NAIVE
+                </mat-button-toggle>
+                <mat-button-toggle value="ALMOST-MILL">
+                  +/- MILL
+                </mat-button-toggle>
+              </mat-button-toggle-group>
+            </td>
+          </tr>
+        </table>
+      </mat-menu>
+      <button mat-icon-button [disabled]="currentIndex==gameStates.length-1" (click)="redo()">
+        <mat-icon>redo</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
+  <div class="app-wrapper">
+    <div class="buttons-wrapper">
+      <h1 *ngIf="performTests">Test {{testCounter + 1}} of {{testDefinitions.length}}</h1>
+      <h1>
+        <span class="header-wrapper">
+          {{gameStates[currentIndex].moveCount + 1}}
+        </span>
+        <span (click)="toggleTests()"> : </span>
+        <span class="header-wrapper player-name">
+          {{gameStates[currentIndex].turn}}
+        </span>
+        <span class="header-wrapper">{{gameStates[currentIndex].moveType}}</span>
+        <span *ngIf="getCurrentPlayerType(gameStates[currentIndex]) == 'AI'">
+          <mat-spinner [diameter]="32"></mat-spinner>
+        </span>
+      </h1>
+    </div>
+    <mat-card class="canvas-wrapper" id="canvas-wrapper">
+      <canvas id="canvas"></canvas>
+    </mat-card>
+    <mat-grid-list cols="2" rowHeight="100" style="display:none">
+      <mat-grid-tile>
+        <mat-card class="canvas-wrapper">
+          <canvas id="gold-drawer"></canvas>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile style="max-height:100px;">
+        <mat-card class="canvas-wrapper">
+          <canvas id="blue-drawer"></canvas>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+  <div>
+    <mat-card class="game-status">
+      <table>
+        <tr class="header-row">
+          <th></th>
+          <th>{{gameStates[currentIndex].goldPlayerState.color}}</th>
+          <th>{{gameStates[currentIndex].bluePlayerState.color}}</th>
+        </tr>
+        <tr>
+          <th>Score:</th>
+          <td>{{gameStates[currentIndex].goldPlayerState.points}}</td>
+          <td>{{gameStates[currentIndex].bluePlayerState.points}}</td>
+        </tr>
+        <tr>
+          <th>Pieces active:</th>
+          <td>{{gameStates[currentIndex].goldPlayerState.piecesOnBoard}}</td>
+          <td>{{gameStates[currentIndex].bluePlayerState.piecesOnBoard}}</td>
+        </tr>
+        <tr>
+          <th>Pieces available:</th>
+          <td>{{gameStates[currentIndex].goldPlayerState.piecesInDrawer}}</td>
+          <td>{{gameStates[currentIndex].bluePlayerState.piecesInDrawer}}</td>
+        </tr>
+      </table>
+    </mat-card>
+    <mat-expansion-panel class="game-status" *ngIf="gameStates[currentIndex].moves.length != 0">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Moves
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-list>
+        <mat-list-item *ngFor="let move of gameStates[currentIndex].moves">{{move.count}} {{move.color}}
+          {{move.moveType}} {{move.moveDescription}}</mat-list-item>
+      </mat-list>
+    </mat-expansion-panel>
+  </div>
+</div>
