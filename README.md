@@ -10,6 +10,9 @@ Navigate to `http://localhost:4200/`.
 
 ## CS 449
 
+Team: Vee Are
+Contributors: Harrison Lara, Kory Overbay, Alec Shern, Tarsus Arciga
+
 ### Overview
 
 Your customer is asking you to develop software simulatingthe board game Mill, also known as Nine Men's Morris (http://en.wikipedia.org/wiki/Nine_Men's_Morris). The software should allow a human player to play against either a human or a computer opponent1. You may determine the functional and quality requirements according to the rules of the game(e.g., placing pieces, moving pieces, and flying), future enhancement for the variants of Nine Men's Morris(e.g., Six Men’s Morris and Twelve Men’s Morris), and your imagination. You may implement the softwareas a standalone program, a webapplication, or a mobile appusing a general-purpose object-oriented programming language of your choice. Your development environment must include a unit test framework (e.g., xUnit)for writing and executing test code.You are expected to maximize the practices of object-oriented techniques, especially if your chosen programming language originated from a non-OO paradigm. You should use a public project hosting site such as github.com, and a version control system such asgit or subversion, unless you have made prior arrangements with the instructor.
