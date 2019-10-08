@@ -1,4 +1,4 @@
-# NineMensMorris
+# Nine Mens Morris
 
 Created with Angular, Typescript, Karma.
 AI implenentation: Alpha-Beta and Minimax
