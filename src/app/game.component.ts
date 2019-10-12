@@ -11,14 +11,14 @@ import { PlayerType } from "./model/enum/playerType.enum";
 import { GameService } from "./service/game.service";
 import { aiService } from "./service/ai.service";
 import { MatDialog, MatSnackBar } from "@angular/material";
-import { InfoComponent } from "./info/info.component";
+import { HelpComponent } from "./help/help.component";
 import { EndgameComponent } from "./endgame/endgame.component";
 import { SwUpdate } from "@angular/service-worker";
 import { AlgorithmType } from "./model/enum/algorithmType.enum";
 import { HeuristicsType } from "./model/enum/heuristicsType.enum";
 import { EndgameData } from "./model/endgameData.model";
 import { PathCounter } from "./model/pathCounter.model";
-import { TestDefinition } from "./model/test-definition.model";
+import { TestDefinition } from "./model/testDefinition.model";
 
 @Component({
   selector: 'app-root',
@@ -344,8 +344,8 @@ export class MillComponent implements AfterViewInit, OnInit {
     }
   }
 
-  openInfoDialog(): void {
-    this.dialog.open(InfoComponent);
+  openHelpDialog(): void {
+    this.dialog.open(HelpComponent);
   }
 
   reset() {

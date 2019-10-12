@@ -16,18 +16,18 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 
 import { environment } from '../environments/environment';
-import { InfoComponent } from './info/info.component';
+import { HelpComponent } from './help/help.component';
 import { MillComponent } from './game.component';
 import { EndgameComponent } from './endgame/endgame.component';
 
 @NgModule({
   declarations: [
     MillComponent,
-    InfoComponent,
+    HelpComponent,
     EndgameComponent
   ],
   entryComponents: [
-    InfoComponent,
+    HelpComponent,
     EndgameComponent
   ],
   imports: [
