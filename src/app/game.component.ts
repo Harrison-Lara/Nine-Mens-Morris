@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { HighlightedCircle, ICircle } from './model/circle.model';
+import { HighlightedNode, INode } from './model/node.model';
 import { MoveType } from './model/enum/move-type.enum';
 import { BoardService } from './service/board.service';
 import { IPosition } from './model/position.model';
@@ -137,11 +137,11 @@ export class MillComponent implements AfterViewInit, OnInit {
   onClickOrTouchListener(event: UIEvent) {
     if (this.getCurrentPlayerType(this.gameStates[this.gameStates.length - 1]) == PlayerType.HUMAN) {
       const relativePosition = this.BoardService.getPositionInCanvas(event);
-      const selectedCircle: ICircle = this.findIntersectingPiece(this.gameStates[this.gameStates.length - 1].circles, relativePosition);
-      if (selectedCircle) {
+      const selectedNode: INode = this.findIntersectingPiece(this.gameStates[this.gameStates.length - 1].nodes, relativePosition);
+      if (selectedNode) {
         let newGameState = this.gameService.clone(this.gameStates[this.currentIndex]);
-        let circle = newGameState.circles.find(circle => circle.x == selectedCircle.x && circle.y == selectedCircle.y);
-        this.gameService.performMove(newGameState, circle);
+        let node = newGameState.nodes.find(node => node.x == selectedNode.x && node.y == selectedNode.y);
+        this.gameService.performMove(newGameState, node);
         this.processMoveResult(newGameState);
       }
     }
@@ -160,21 +160,21 @@ export class MillComponent implements AfterViewInit, OnInit {
     this.canvas.addEventListener('mousemove', (mouseEvent) => {
       if (this.getCurrentPlayerType(this.gameStates[this.currentIndex]) == PlayerType.HUMAN) {
         const relativePosition = this.BoardService.getMousePositionInCanvas(mouseEvent);
-        const hoveredCircle: ICircle = this.findIntersectingPiece(this.gameStates[this.currentIndex].circles, relativePosition);
+        const hoveredNode: INode = this.findIntersectingPiece(this.gameStates[this.currentIndex].nodes, relativePosition);
         let isMoveAllowed = false;
 
-        if (hoveredCircle) {
+        if (hoveredNode) {
           switch (this.gameStates[this.currentIndex].moveType) {
             case MoveType.NORMAL:
             case MoveType.REMOVE_OPPONENT:
             case MoveType.REMOVE_OPPONENT_2:
-              isMoveAllowed = this.gameService.isMoveAllowed(this.gameStates[this.currentIndex], hoveredCircle);
+              isMoveAllowed = this.gameService.isMoveAllowed(this.gameStates[this.currentIndex], hoveredNode);
               break;
             case MoveType.MOVE_NEARBY:
             case MoveType.MOVE_ANYWHERE:
-              isMoveAllowed = this.gameService.isMoveAllowed(this.gameStates[this.currentIndex], hoveredCircle);
+              isMoveAllowed = this.gameService.isMoveAllowed(this.gameStates[this.currentIndex], hoveredNode);
               if (!isMoveAllowed && this.gameStates[this.currentIndex].chosenForShift != null) {
-                isMoveAllowed = this.gameService.isShiftToAllowed(this.gameStates[this.currentIndex], this.gameStates[this.currentIndex].chosenForShift, hoveredCircle);
+                isMoveAllowed = this.gameService.isShiftToAllowed(this.gameStates[this.currentIndex], this.gameStates[this.currentIndex].chosenForShift, hoveredNode);
               }
               break;
           }
@@ -224,8 +224,8 @@ export class MillComponent implements AfterViewInit, OnInit {
     this.goldMoveService.numberOfPieces = gameState.goldPlayerState.piecesInDrawer;
     this.blueMoveService.numberOfPieces = gameState.bluePlayerState.piecesInDrawer;
 
-    gameState.circles.forEach(circle => this.BoardService.drawCircle(circle));
-    gameState.shiftDestinations.forEach(circle => this.BoardService.drawCircle(new HighlightedCircle(circle)));
+    gameState.nodes.forEach(node => this.BoardService.drawNode(node));
+    gameState.shiftDestinations.forEach(node => this.BoardService.drawNode(new HighlightedNode(node)));
 
     this.goldMoveService.drawDrawer();
     this.blueMoveService.drawDrawer();
@@ -284,7 +284,7 @@ export class MillComponent implements AfterViewInit, OnInit {
     this.snackBar.open(message, 'OK', { duration: 3000 });
   }
 
-  findIntersectingPiece(pieces: ICircle[], relativePosition: IPosition): ICircle {
+  findIntersectingPiece(pieces: INode[], relativePosition: IPosition): INode {
     for (const piece of pieces) {
       if (this.BoardService.isIntersect(relativePosition, piece)) {
         return piece;

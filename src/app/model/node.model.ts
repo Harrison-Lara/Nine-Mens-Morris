@@ -1,13 +1,13 @@
 import { Color } from "./enum/color.enum";
 
-export interface ICircle {
+export interface INode {
   x: number;
   y: number;
   radius: number;
   color: Color;
 }
 
-export class Circle implements ICircle {
+export class Node implements INode {
   color = Color.GRAY;
 
   constructor(
@@ -18,27 +18,27 @@ export class Circle implements ICircle {
   }
 }
 
-export class HighlightedCircle implements ICircle {
+export class HighlightedNode implements INode {
   color = Color.BLANK;
   radius: number;
   x: number;
   y: number;
 
   constructor(
-    circle: ICircle
+    node: INode
   ) {
-    this.x = circle.x;
-    this.y = circle.y;
+    this.x = node.x;
+    this.y = node.y;
     this.radius = 2;
   }
 
 }
 
-export function changeColor(circle: Circle, color: Color): void {
+export function changeColor(node: Node, color: Color): void {
   if (color == Color.GRAY) {
-    circle.radius = 1;
+    node.radius = 1;
   } else {
-    circle.radius = 2;
+    node.radius = 2;
   }
-  circle.color = color;
+  node.color = color;
 }

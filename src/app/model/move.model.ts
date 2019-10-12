@@ -1,5 +1,5 @@
 import { MoveType } from "./enum/move-type.enum";
-import { ICircle } from "./circle.model";
+import { INode } from "./node.model";
 import { Color } from "./enum/color.enum";
 
 export interface IMove {
@@ -12,7 +12,7 @@ export interface IMove {
 export class BasicMove implements IMove {
   moveDescription: string;
 
-  constructor(public count: number, public color: Color, public moveType: MoveType, destination: ICircle) {
+  constructor(public count: number, public color: Color, public moveType: MoveType, destination: INode) {
     this.moveDescription = getStringCoords(destination.x, destination.y);
   }
 }
@@ -20,7 +20,7 @@ export class BasicMove implements IMove {
 export class ShiftMove implements IMove {
   moveDescription: string;
 
-  constructor(public count: number, public color: Color, public moveType: MoveType, source: ICircle, destination: ICircle) {
+  constructor(public count: number, public color: Color, public moveType: MoveType, source: INode, destination: INode) {
     this.moveDescription = getStringCoords(source.x, source.y) + ' - ' + getStringCoords(destination.x, destination.y);
   }
 }

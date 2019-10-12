@@ -1,4 +1,4 @@
-import { ICircle } from "./circle.model";
+import { INode } from "./node.model";
 import { Color } from "./enum/color.enum";
 
 export interface IPlayerState {
@@ -6,8 +6,8 @@ export interface IPlayerState {
   piecesOnBoard: number;
   points: number;
   color: Color;
-  previousPosition: ICircle;
-  lastMovedPiece: ICircle;
+  previousPosition: INode;
+  lastMovedPiece: INode;
 }
 
 export class PlayerState implements IPlayerState {
@@ -15,8 +15,8 @@ export class PlayerState implements IPlayerState {
   piecesOnBoard: number;
   points: number;
 
-  previousPosition: ICircle;
-  lastMovedPiece: ICircle;
+  previousPosition: INode;
+  lastMovedPiece: INode;
 
   constructor(public color: Color, public playerType) {
     this.piecesInDrawer = 9;

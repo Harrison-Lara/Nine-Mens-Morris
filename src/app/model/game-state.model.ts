@@ -1,6 +1,6 @@
 import { Color } from "./enum/color.enum";
 import { MoveType } from "./enum/move-type.enum";
-import { Circle, ICircle } from "./circle.model";
+import { Node, INode } from "./node.model";
 import { IPlayerState, PlayerState } from "./player-state.model";
 import { PlayerType } from "./enum/player-type.enum";
 import { IMove } from "./move.model";
@@ -8,12 +8,12 @@ import { IMove } from "./move.model";
 export interface IGameState {
   turn: Color;
   moveType: MoveType;
-  circles: ICircle[];
-  shiftDestinations: ICircle[];
+  nodes: INode[];
+  shiftDestinations: INode[];
   goldPlayerState: IPlayerState;
   bluePlayerState: IPlayerState;
-  chosenForShift: ICircle;
-  allowedMoves: ICircle[];
+  chosenForShift: INode;
+  allowedMoves: INode[];
   moveCount: number;
   moves: IMove[];
   movesWithoutMill: number;
@@ -23,15 +23,15 @@ const boardCenter = 3;
 const boardSize = 7;
 
 export class GameState implements IGameState {
-  chosenForShift: ICircle;
+  chosenForShift: INode;
 
   turn: Color = Color.GOLD;
   moveType: MoveType = MoveType.NORMAL;
-  circles: ICircle[] = [];
-  shiftDestinations: ICircle[] = [];
+  nodes: INode[] = [];
+  shiftDestinations: INode[] = [];
   goldPlayerState: IPlayerState;
   bluePlayerState: IPlayerState;
-  allowedMoves: ICircle[];
+  allowedMoves: INode[];
   moveCount: number;
   moves: IMove[] = [];
   movesWithoutMill = 0;
@@ -40,7 +40,7 @@ export class GameState implements IGameState {
     this.goldPlayerState = new PlayerState(Color.GOLD, goldPlayerType);
     this.bluePlayerState = new PlayerState(Color.BLUE, bluePlayerType);
 
-    this.allowedMoves = this.circles;
+    this.allowedMoves = this.nodes;
     this.moveCount = 0;
 
     this.goldPlayerState.piecesOnBoard = 0;
@@ -50,7 +50,7 @@ export class GameState implements IGameState {
       for (let y = 0; y < boardSize; ++y) {
         if ((Math.abs(x - boardCenter) === Math.abs(y - boardCenter) || x === boardCenter || y === boardCenter)
           && !(x === boardCenter && y === boardCenter)) {
-          this.circles.push(new Circle(x, y, 1));
+          this.nodes.push(new Node(x, y, 1));
         }
       }
     }

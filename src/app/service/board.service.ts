@@ -1,5 +1,5 @@
 import { IPosition, Position } from '../model/position.model';
-import { ICircle } from '../model/circle.model';
+import { INode } from '../model/node.model';
 import { Color, getColorRgbaString } from "../model/enum/color.enum";
 
 export class BoardService {
@@ -26,12 +26,12 @@ export class BoardService {
     this.ctx.stroke();
   }
 
-  public drawCircle(circle: ICircle): void {
-    this.drawCircleInCoords(circle, circle.x, circle.y);
+  public drawNode(node: INode): void {
+    this.drawNodeInCoords(node, node.x, node.y);
   }
 
-  public drawCircleInCoords(circle: ICircle, x: number, y: number) {
-    this.drawBasicCircleInCoords(x, y, circle.radius, circle.color);
+  public drawNodeInCoords(node: INode, x: number, y: number) {
+    this.drawBasicNodeInCoords(x, y, node.radius, node.color);
   }
 
   public writeOnCanvas(x: number, y: number, text: string) {
@@ -40,7 +40,7 @@ export class BoardService {
     this.ctx.fillText(text, x, y);
   }
 
-  public drawBasicCircleInCoords(x: number, y: number, radius: number, color: Color) {
+  public drawBasicNodeInCoords(x: number, y: number, radius: number, color: Color) {
     this.ctx.beginPath();
     const finalX = this.getRealCoordinate(x);
     const finalY = this.getRealCoordinate(y);
@@ -85,12 +85,12 @@ export class BoardService {
     return val * this.baseSize + this.offset;
   }
 
-  public isIntersect(point: IPosition, circle: ICircle): boolean {
-    if (circle.x == null || circle.y == null) {
+  public isIntersect(point: IPosition, node: INode): boolean {
+    if (node.x == null || node.y == null) {
       return false;
     }
 
-    return Math.sqrt((point.x - this.getRealCoordinate(circle.x)) ** 2
-      + (point.y - this.getRealCoordinate(circle.y)) ** 2) < circle.radius * 2 * this.baseRadiuseSie;
+    return Math.sqrt((point.x - this.getRealCoordinate(node.x)) ** 2
+      + (point.y - this.getRealCoordinate(node.y)) ** 2) < node.radius * 2 * this.baseRadiuseSie;
   }
 }
