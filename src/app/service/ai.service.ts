@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { GameService } from "./game.service";
-import { IGameState } from "../model/game-state.model";
+import { IGameState } from "../model/gameState.model";
 import { Color } from "../model/enum/color.enum";
-import { GameStateNode, IGameStateNode } from "../model/game-state-node.model";
-import { MoveType } from "../model/enum/move-type.enum";
-import { AlgorithmType } from "../model/enum/algorithm-type.enum";
-import { HeuristicsType } from "../model/enum/heuristics-type.enum";
-import { PathCounter } from "../model/path-counter.model";
+import { GameStateNode, IGameStateNode } from "../model/gameStateNode.model";
+import { MoveType } from "../model/enum/moveType.enum";
+import { AlgorithmType } from "../model/enum/algorithmType.enum";
+import { HeuristicsType } from "../model/enum/heuristicsType.enum";
+import { PathCounter } from "../model/pathCounter.model";
 
 @Injectable({
   providedIn: 'root'

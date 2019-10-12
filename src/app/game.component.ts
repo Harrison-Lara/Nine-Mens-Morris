@@ -1,23 +1,23 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { HighlightedNode, INode } from './model/node.model';
-import { MoveType } from './model/enum/move-type.enum';
+import { MoveType } from './model/enum/moveType.enum';
 import { BoardService } from './service/board.service';
 import { IPosition } from './model/position.model';
 import { Color } from "./model/enum/color.enum";
 import { MoveService } from "./service/move.service";
 import { getWinSize, largeScreen } from "./service/resize.service";
-import { GameState, IGameState } from "./model/game-state.model";
-import { PlayerType } from "./model/enum/player-type.enum";
+import { GameState, IGameState } from "./model/gameState.model";
+import { PlayerType } from "./model/enum/playerType.enum";
 import { GameService } from "./service/game.service";
 import { aiService } from "./service/ai.service";
 import { MatDialog, MatSnackBar } from "@angular/material";
 import { InfoComponent } from "./info/info.component";
 import { EndgameComponent } from "./endgame/endgame.component";
 import { SwUpdate } from "@angular/service-worker";
-import { AlgorithmType } from "./model/enum/algorithm-type.enum";
-import { HeuristicsType } from "./model/enum/heuristics-type.enum";
-import { EndgameData } from "./model/endgame-data.model";
-import { PathCounter } from "./model/path-counter.model";
+import { AlgorithmType } from "./model/enum/algorithmType.enum";
+import { HeuristicsType } from "./model/enum/heuristicsType.enum";
+import { EndgameData } from "./model/endgameData.model";
+import { PathCounter } from "./model/pathCounter.model";
 import { TestDefinition } from "./model/test-definition.model";
 
 @Component({

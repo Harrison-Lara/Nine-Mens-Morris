@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
-import { EndgameData } from "../model/endgame-data.model";
+import { EndgameData } from "../model/endgameData.model";
 
 @Component({
   selector: 'app-endgame',

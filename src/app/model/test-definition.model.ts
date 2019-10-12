@@ -1,5 +1,5 @@
-import { AlgorithmType } from "./enum/algorithm-type.enum";
-import { HeuristicsType } from "./enum/heuristics-type.enum";
+import { AlgorithmType } from "./enum/algorithmType.enum";
+import { HeuristicsType } from "./enum/heuristicsType.enum";
 
 export class TestDefinition {
   blueAiAlgorithm: AlgorithmType;

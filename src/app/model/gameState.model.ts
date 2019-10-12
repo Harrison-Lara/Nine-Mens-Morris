@@ -1,8 +1,8 @@
 import { Color } from "./enum/color.enum";
-import { MoveType } from "./enum/move-type.enum";
+import { MoveType } from "./enum/moveType.enum";
 import { Node, INode } from "./node.model";
-import { IPlayerState, PlayerState } from "./player-state.model";
-import { PlayerType } from "./enum/player-type.enum";
+import { IPlayerState, PlayerState } from "./playerState.model";
+import { PlayerType } from "./enum/playerType.enum";
 import { IMove } from "./move.model";
 
 export interface IGameState {

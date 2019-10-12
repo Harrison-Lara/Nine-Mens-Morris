@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Color, getOpponentColor } from "../model/enum/color.enum";
 import { changeColor, INode } from "../model/node.model";
-import { MoveType } from "../model/enum/move-type.enum";
-import { MoveResult } from "../model/enum/move-result.enum";
-import { IPlayerState } from "../model/player-state.model";
-import { GameState, IGameState } from "../model/game-state.model";
+import { MoveType } from "../model/enum/moveType.enum";
+import { MoveResult } from "../model/enum/moveResult.enum";
+import { IPlayerState } from "../model/playerState.model";
+import { GameState, IGameState } from "../model/gameState.model";
 import { cloneDeep } from 'lodash';
 import { BasicMove, ShiftMove } from "../model/move.model";
-import { HeuristicsType } from "../model/enum/heuristics-type.enum";
+import { HeuristicsType } from "../model/enum/heuristicsType.enum";
 
 @Injectable({
   providedIn: 'root'

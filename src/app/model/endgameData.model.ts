@@ -1,7 +1,7 @@
 import { Color } from "./enum/color.enum";
-import { PlayerType } from "./enum/player-type.enum";
-import { AlgorithmType } from "./enum/algorithm-type.enum";
-import { HeuristicsType } from "./enum/heuristics-type.enum";
+import { PlayerType } from "./enum/playerType.enum";
+import { AlgorithmType } from "./enum/algorithmType.enum";
+import { HeuristicsType } from "./enum/heuristicsType.enum";
 
 export class EndgameData {
   public timeCounter: string;

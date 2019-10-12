@@ -1,8 +1,8 @@
-import { IGameState } from "./game-state.model";
+import { IGameState } from "./gameState.model";
 import { GameService } from "../service/game.service";
-import { HeuristicsType } from "./enum/heuristics-type.enum";
-import { AlgorithmType } from "./enum/algorithm-type.enum";
-import { PathCounter } from "./path-counter.model";
+import { HeuristicsType } from "./enum/heuristicsType.enum";
+import { AlgorithmType } from "./enum/algorithmType.enum";
+import { PathCounter } from "./pathCounter.model";
 
 export interface IGameStateNode {
   root: IGameState;
