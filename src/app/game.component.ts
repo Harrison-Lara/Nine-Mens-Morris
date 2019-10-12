@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { HighlightedCircle, ICircle } from './model/circle.model';
 import { MoveType } from './model/enum/move-type.enum';
-import { CanvasService } from './service/canvas.service';
+import { BoardService } from './service/board.service';
 import { IPosition } from './model/position.model';
 import { Color } from "./model/enum/color.enum";
-import { DrawerService } from "./service/drawer.service";
+import { MoveService } from "./service/move.service";
 import { getWinSize, largeScreen } from "./service/resize.service";
 import { GameState, IGameState } from "./model/game-state.model";
 import { PlayerType } from "./model/enum/player-type.enum";
@@ -25,17 +25,17 @@ import { TestDefinition } from "./model/test-definition.model";
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.css'],
 })
-export class GameComponent implements AfterViewInit, OnInit {
+export class MillComponent implements AfterViewInit, OnInit {
 
   boardSize: number = 7;
   baseSize: number;
   offset: number;
 
   canvas: HTMLCanvasElement;
-  canvasService: CanvasService;
+  BoardService: BoardService;
 
-  goldDrawerService: DrawerService;
-  blueDrawerService: DrawerService;
+  goldMoveService: MoveService;
+  blueMoveService: MoveService;
 
   gameStates: IGameState[] = [];
   currentIndex = 0;
@@ -107,15 +107,15 @@ export class GameComponent implements AfterViewInit, OnInit {
     this.offset = this.baseSize * 1.25;
     const baseRadiusSize = this.baseSize / 6;
 
-    this.canvasService = new CanvasService(this.canvas, this.baseSize, this.offset, baseRadiusSize);
+    this.BoardService = new BoardService(this.canvas, this.baseSize, this.offset, baseRadiusSize);
 
-    this.goldDrawerService = new DrawerService(document.getElementById('gold-drawer') as HTMLCanvasElement,
+    this.goldMoveService = new MoveService(document.getElementById('gold-drawer') as HTMLCanvasElement,
       this.baseSize,
       this.offset * 0.5,
       this.gameStates[this.currentIndex].goldPlayerState.piecesInDrawer,
       Color.GOLD,
       2, baseRadiusSize);
-    this.blueDrawerService = new DrawerService(document.getElementById('blue-drawer') as HTMLCanvasElement,
+    this.blueMoveService = new MoveService(document.getElementById('blue-drawer') as HTMLCanvasElement,
       this.baseSize,
       this.offset * 0.5,
       this.gameStates[this.currentIndex].bluePlayerState.piecesInDrawer,
@@ -136,7 +136,7 @@ export class GameComponent implements AfterViewInit, OnInit {
 
   onClickOrTouchListener(event: UIEvent) {
     if (this.getCurrentPlayerType(this.gameStates[this.gameStates.length - 1]) == PlayerType.HUMAN) {
-      const relativePosition = this.canvasService.getPositionInCanvas(event);
+      const relativePosition = this.BoardService.getPositionInCanvas(event);
       const selectedCircle: ICircle = this.findIntersectingPiece(this.gameStates[this.gameStates.length - 1].circles, relativePosition);
       if (selectedCircle) {
         let newGameState = this.gameService.clone(this.gameStates[this.currentIndex]);
@@ -159,7 +159,7 @@ export class GameComponent implements AfterViewInit, OnInit {
   addCanvasOnMouseMoveListener(): void {
     this.canvas.addEventListener('mousemove', (mouseEvent) => {
       if (this.getCurrentPlayerType(this.gameStates[this.currentIndex]) == PlayerType.HUMAN) {
-        const relativePosition = this.canvasService.getMousePositionInCanvas(mouseEvent);
+        const relativePosition = this.BoardService.getMousePositionInCanvas(mouseEvent);
         const hoveredCircle: ICircle = this.findIntersectingPiece(this.gameStates[this.currentIndex].circles, relativePosition);
         let isMoveAllowed = false;
 
@@ -207,28 +207,28 @@ export class GameComponent implements AfterViewInit, OnInit {
   }
 
   drawBoard(gameState: IGameState): void {
-    this.canvasService.clearCanvas();
-    this.canvasService.drawSquare(2, 2, 2);
-    this.canvasService.drawSquare(1, 1, 4);
-    this.canvasService.drawSquare(0, 0, 6);
-    this.canvasService.drawLine(0, 3, 2, 3);
-    this.canvasService.drawLine(4, 3, 6, 3);
-    this.canvasService.drawLine(3, 0, 3, 2);
-    this.canvasService.drawLine(3, 4, 3, 6);
+    this.BoardService.clearCanvas();
+    this.BoardService.drawSquare(2, 2, 2);
+    this.BoardService.drawSquare(1, 1, 4);
+    this.BoardService.drawSquare(0, 0, 6);
+    this.BoardService.drawLine(0, 3, 2, 3);
+    this.BoardService.drawLine(4, 3, 6, 3);
+    this.BoardService.drawLine(3, 0, 3, 2);
+    this.BoardService.drawLine(3, 4, 3, 6);
     const legendOffset = 0.15;
     for (let i = 0; i < this.boardSize; ++i) {
-      this.canvasService.writeOnCanvas(this.offset / 4, this.offset * (1 + legendOffset) + i * this.baseSize, i.toString());
-      this.canvasService.writeOnCanvas(this.offset * (1 - legendOffset) + i * this.baseSize, this.offset / 2, String.fromCharCode('A'.charCodeAt(0) + i));
+      this.BoardService.writeOnCanvas(this.offset / 4, this.offset * (1 + legendOffset) + i * this.baseSize, i.toString());
+      this.BoardService.writeOnCanvas(this.offset * (1 - legendOffset) + i * this.baseSize, this.offset / 2, String.fromCharCode('A'.charCodeAt(0) + i));
     }
 
-    this.goldDrawerService.numberOfPieces = gameState.goldPlayerState.piecesInDrawer;
-    this.blueDrawerService.numberOfPieces = gameState.bluePlayerState.piecesInDrawer;
+    this.goldMoveService.numberOfPieces = gameState.goldPlayerState.piecesInDrawer;
+    this.blueMoveService.numberOfPieces = gameState.bluePlayerState.piecesInDrawer;
 
-    gameState.circles.forEach(circle => this.canvasService.drawCircle(circle));
-    gameState.shiftDestinations.forEach(circle => this.canvasService.drawCircle(new HighlightedCircle(circle)));
+    gameState.circles.forEach(circle => this.BoardService.drawCircle(circle));
+    gameState.shiftDestinations.forEach(circle => this.BoardService.drawCircle(new HighlightedCircle(circle)));
 
-    this.goldDrawerService.drawDrawer();
-    this.blueDrawerService.drawDrawer();
+    this.goldMoveService.drawDrawer();
+    this.blueMoveService.drawDrawer();
   }
 
   performAIMove() {
@@ -286,7 +286,7 @@ export class GameComponent implements AfterViewInit, OnInit {
 
   findIntersectingPiece(pieces: ICircle[], relativePosition: IPosition): ICircle {
     for (const piece of pieces) {
-      if (this.canvasService.isIntersect(relativePosition, piece)) {
+      if (this.BoardService.isIntersect(relativePosition, piece)) {
         return piece;
       }
     }

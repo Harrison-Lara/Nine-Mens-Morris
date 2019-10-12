@@ -2,7 +2,7 @@ import { IPosition, Position } from '../model/position.model';
 import { ICircle } from '../model/circle.model';
 import { Color, getColorRgbaString } from "../model/enum/color.enum";
 
-export class CanvasService {
+export class BoardService {
 
   ctx: CanvasRenderingContext2D;
 

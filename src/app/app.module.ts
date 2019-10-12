@@ -17,12 +17,12 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { environment } from '../environments/environment';
 import { InfoComponent } from './info/info.component';
-import { GameComponent } from './game.component';
+import { MillComponent } from './game.component';
 import { EndgameComponent } from './endgame/endgame.component';
 
 @NgModule({
   declarations: [
-    GameComponent,
+    MillComponent,
     InfoComponent,
     EndgameComponent
   ],
@@ -49,7 +49,7 @@ import { EndgameComponent } from './endgame/endgame.component';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
-  bootstrap: [GameComponent]
+  bootstrap: [MillComponent]
 })
 export class AppModule {
 }
