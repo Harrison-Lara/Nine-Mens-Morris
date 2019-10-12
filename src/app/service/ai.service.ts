@@ -16,7 +16,7 @@ export class aiService {
   constructor(private gameService: GameService) {
   }
 
-  public performAIMove(gameState: IGameState, algorithmType: AlgorithmType, heuristics: HeuristicsType, pathCounter: PathCounter): IGameState {
+  public moveAI(gameState: IGameState, algorithmType: AlgorithmType, heuristics: HeuristicsType, pathCounter: PathCounter): IGameState {
     if (gameState.moveType == MoveType.END_GAME) {
       return gameState;
     }
@@ -37,7 +37,7 @@ export class aiService {
     while ((Date.now() - timeStart) + (iterationTime ** 2) < timeout && level < 10) {
       level++;
       for (const firstQueueElem of firstQueue) {
-        const children = this.gameService.getAllPossibleNextMoveResults(firstQueueElem.root)
+        const children = this.gameService.getPotentialNextMove(firstQueueElem.root)
           .map(state => GameStateNode.createFromParent(firstQueueElem, state));
         firstQueueElem.children = children;
         secondQueue = [...secondQueue, ...children];

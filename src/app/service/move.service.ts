@@ -14,7 +14,7 @@ export class MoveService {
   drawDrawer() {
     this.BoardService.clearCanvas();
 
-    this.BoardService.writeOnCanvas(this.offset / 2, this.offset * 1.25, this.numberOfPieces + " x");
+    this.BoardService.createCanvas(this.offset / 2, this.offset * 1.25, this.numberOfPieces + " x");
     this.BoardService.drawBasicNodeInCoords(1, 0, this.radiusSize, this.color);
   }
 }

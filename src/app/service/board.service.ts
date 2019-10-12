@@ -34,7 +34,7 @@ export class BoardService {
     this.drawBasicNodeInCoords(x, y, node.radius, node.color);
   }
 
-  public writeOnCanvas(x: number, y: number, text: string) {
+  public createCanvas(x: number, y: number, text: string) {
     this.ctx.font = this.baseSize / 2 + "px Roboto";
     this.ctx.fillStyle = "black";
     this.ctx.fillText(text, x, y);

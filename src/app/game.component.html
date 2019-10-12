@@ -16,7 +16,7 @@
           <tr>
             <th>Gold Player</th>
             <td>
-              <mat-button-toggle-group [value]="goldPlayerType" (change)="changePlayerType('GOLD')">
+              <mat-button-toggle-group [value]="goldPlayerType" (change)="switchPlayers('GOLD')">
                 <mat-button-toggle value="HUMAN">
                   HUMAN
                 </mat-button-toggle>
@@ -29,7 +29,7 @@
           <tr>
             <th>Blue Player</th>
             <td>
-              <mat-button-toggle-group [value]="bluePlayerType" (change)="changePlayerType('BLUE')">
+              <mat-button-toggle-group [value]="bluePlayerType" (change)="switchPlayers('BLUE')">
                 <mat-button-toggle value="HUMAN">
                   HUMAN
                 </mat-button-toggle>
@@ -114,7 +114,7 @@
           {{gameStates[currentIndex].turn}}
         </span>
         <span class="header-wrapper">{{gameStates[currentIndex].moveType}}</span>
-        <span *ngIf="getCurrentPlayerType(gameStates[currentIndex]) == 'AI'">
+        <span *ngIf="getCurrentPlayer(gameStates[currentIndex]) == 'AI'">
           <mat-spinner [diameter]="32"></mat-spinner>
         </span>
       </h1>

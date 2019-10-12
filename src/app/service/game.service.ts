@@ -393,7 +393,7 @@ export class GameService {
     return false;
   }
 
-  public getAllPossibleNextMoveResults(gameState: IGameState): IGameState[] {
+  public getPotentialNextMove(gameState: IGameState): IGameState[] {
     let destinations: INode[] = [];
     switch (gameState.moveType) {
       case MoveType.NORMAL:
@@ -406,20 +406,20 @@ export class GameService {
       default:
         break;
     }
-    return this.getAllPossibleNextMoveResultsForDestinations(gameState, destinations);
+    return this.getPonetialNextMoveDestinations(gameState, destinations);
   }
 
-  private getAllPossibleNextMoveResultsForDestinations(gameState: IGameState, destinations: INode[]): IGameState[] {
+  private getPonetialNextMoveDestinations(gameState: IGameState, destinations: INode[]): IGameState[] {
     let result: IGameState[] = [];
     for (let possibleMove of destinations) {
       const newGameState = this.clone(gameState);
       const moveDestination = newGameState.nodes.find(node => GameService.compareNodesPosition(node, possibleMove));
       switch (this.performMove(newGameState, moveDestination)) {
         case MoveResult.CHANGED_STATE_TO_REMOVE:
-          result = [...result, ...this.getAllPossibleNextMoveResultsForDestinations(newGameState, newGameState.allowedMoves)];
+          result = [...result, ...this.getPonetialNextMoveDestinations(newGameState, newGameState.allowedMoves)];
           break;
         case MoveResult.SELECTED_TO_SHIFT:
-          result = [...result, ...this.getAllPossibleNextMoveResultsForDestinations(newGameState, newGameState.shiftDestinations)];
+          result = [...result, ...this.getPonetialNextMoveDestinations(newGameState, newGameState.shiftDestinations)];
           break;
         case MoveResult.FINISHED_TURN:
         case MoveResult.END_GAME:
