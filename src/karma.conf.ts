@@ -26,4 +26,4 @@ module.exports = (config: any) => {
     browsers: ['Chrome'],
     singleRun: false
   });
-}
+};
