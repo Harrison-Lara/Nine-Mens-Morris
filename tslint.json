@@ -45,6 +45,10 @@
       true,
       "ignore-params"
     ],
+    "typedef": [
+      true,
+      "parameter"
+    ],
     "no-non-null-assertion": true,
     "no-object-literal-type-assertion": true,
     "no-redundant-jsdoc": true,
