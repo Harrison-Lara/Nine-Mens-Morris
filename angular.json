@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "si-nine-mens-morris": {
+    "nine-mens-morris": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -62,18 +62,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "si-nine-mens-morris:build"
+            "browserTarget": "nine-mens-morris:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "si-nine-mens-morris:build:production"
+              "browserTarget": "nine-mens-morris:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "si-nine-mens-morris:build"
+            "browserTarget": "nine-mens-morris:build"
           }
         },
         "test": {
@@ -110,5 +110,5 @@
       }
     }
   },
-  "defaultProject": "si-nine-mens-morris"
+  "defaultProject": "nine-mens-morris"
 }
