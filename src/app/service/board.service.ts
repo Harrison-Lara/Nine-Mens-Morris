@@ -1,6 +1,6 @@
 import { IPosition, Position } from '../model/position.model';
 import { INode } from '../model/node.model';
-import { Color, getColorRgbaString } from "../model/enum/color.enum";
+import { Color, getColorRgbaString } from '../model/enum/color.enum';
 
 export class BoardService {
 
@@ -35,8 +35,8 @@ export class BoardService {
   }
 
   public createCanvas(x: number, y: number, text: string) {
-    this.ctx.font = this.baseSize / 2 + "px Roboto";
-    this.ctx.fillStyle = "black";
+    this.ctx.font = this.baseSize / 2 + 'px Roboto';
+    this.ctx.fillStyle = 'black';
     this.ctx.fillText(text, x, y);
   }
 
@@ -45,7 +45,7 @@ export class BoardService {
     const finalX = this.getRealCoordinate(x);
     const finalY = this.getRealCoordinate(y);
     this.ctx.arc(finalX, finalY, radius * this.baseRadiuseSie, 0, 2 * Math.PI);
-    if (color != Color.BLANK) {
+    if (color !== Color.BLANK) {
       this.ctx.fillStyle = getColorRgbaString(color);
       this.ctx.fill();
     } else {

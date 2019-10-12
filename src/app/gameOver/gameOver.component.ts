@@ -1,9 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
-import { GameOverData } from "../model/gameOverData.model";
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { GameOverData } from '../model/gameOverData.model';
 
 @Component({
-  selector: 'app-gameOver',
+  selector: 'app-game-over',
   templateUrl: './gameOver.component.html',
   styleUrls: ['./gameOver.component.css']
 })

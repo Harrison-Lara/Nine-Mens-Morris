@@ -1,8 +1,8 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 @Component({
-  selector: 'help-component',
+  selector: 'app-help-component',
   templateUrl: './help.component.html',
   styleUrls: ['./help.component.css']
 })

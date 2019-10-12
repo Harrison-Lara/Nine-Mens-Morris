@@ -1,26 +1,26 @@
 import { Injectable } from '@angular/core';
-import { GameService } from "./game.service";
-import { IGameState } from "../model/gameState.model";
-import { Color } from "../model/enum/color.enum";
-import { GameStateNode, IGameStateNode } from "../model/gameStateNode.model";
-import { MoveType } from "../model/enum/moveType.enum";
-import { AlgorithmType } from "../model/enum/algorithmType.enum";
-import { HeuristicsType } from "../model/enum/heuristicsType.enum";
-import { PathCounter } from "../model/pathCounter.model";
+import { GameService } from './game.service';
+import { IGameState } from '../model/gameState.model';
+import { Color } from '../model/enum/color.enum';
+import { GameStateNode, IGameStateNode } from '../model/gameStateNode.model';
+import { MoveType } from '../model/enum/moveType.enum';
+import { AlgorithmType } from '../model/enum/algorithmType.enum';
+import { HeuristicsType } from '../model/enum/heuristicsType.enum';
+import { PathCounter } from '../model/pathCounter.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class aiService {
+export class AIService {
 
   constructor(private gameService: GameService) {
   }
 
   public moveAI(gameState: IGameState, algorithmType: AlgorithmType, heuristics: HeuristicsType, pathCounter: PathCounter): IGameState {
-    if (gameState.moveType == MoveType.END_GAME) {
+    if (gameState.moveType === MoveType.END_GAME) {
       return gameState;
     }
-    let isMaximizing: boolean = gameState.turn == Color.BLUE;
+    const isMaximizing: boolean = gameState.turn === Color.BLUE;
 
     let root = new GameStateNode(this.gameService, gameState, isMaximizing, 0, heuristics, algorithmType, pathCounter);
     root = this.broadFirstTreeGenerate(root, Date.now(), 5 * 10e4, heuristics);

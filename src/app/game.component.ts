@@ -3,31 +3,31 @@ import { HighlightedNode, INode } from './model/node.model';
 import { MoveType } from './model/enum/moveType.enum';
 import { BoardService } from './service/board.service';
 import { IPosition } from './model/position.model';
-import { Color } from "./model/enum/color.enum";
-import { MoveService } from "./service/move.service";
-import { getWinSize, largeScreen } from "./service/resize.service";
-import { GameState, IGameState } from "./model/gameState.model";
-import { PlayerType } from "./model/enum/playerType.enum";
-import { GameService } from "./service/game.service";
-import { aiService } from "./service/ai.service";
-import { MatDialog, MatSnackBar } from "@angular/material";
-import { HelpComponent } from "./help/help.component";
-import { GameOverComponent } from "./gameOver/gameOver.component";
-import { SwUpdate } from "@angular/service-worker";
-import { AlgorithmType } from "./model/enum/algorithmType.enum";
-import { HeuristicsType } from "./model/enum/heuristicsType.enum";
-import { GameOverData } from "./model/gameOverData.model";
-import { PathCounter } from "./model/pathCounter.model";
-import { TestDefinition } from "./model/testDefinition.model";
+import { Color } from './model/enum/color.enum';
+import { MoveService } from './service/move.service';
+import { getWinSize, largeScreen } from './service/resize.service';
+import { GameState, IGameState } from './model/gameState.model';
+import { PlayerType } from './model/enum/playerType.enum';
+import { GameService } from './service/game.service';
+import { AIService } from './service/ai.service';
+import { MatDialog, MatSnackBar } from '@angular/material';
+import { HelpComponent } from './help/help.component';
+import { GameOverComponent } from './gameOver/gameOver.component';
+import { SwUpdate } from '@angular/service-worker';
+import { AlgorithmType } from './model/enum/algorithmType.enum';
+import { HeuristicsType } from './model/enum/heuristicsType.enum';
+import { GameOverData } from './model/gameOverData.model';
+import { PathCounter } from './model/pathCounter.model';
+import { TestDefinition } from './model/testDefinition.model';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-game',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.css'],
 })
 export class MillComponent implements AfterViewInit, OnInit {
 
-  boardSize: number = 7;
+  boardSize = 7;
   baseSize: number;
   offset: number;
 
@@ -57,11 +57,12 @@ export class MillComponent implements AfterViewInit, OnInit {
   goldAiPathCounter: PathCounter;
 
   testDefinitions: TestDefinition[] = TestDefinition.generateTestDefinitions();
-  performTests: boolean = false;
+  performTests = false;
   testCounter = 0;
   testResults: GameOverData[] = [];
 
-  constructor(private gameService: GameService, private aiPlayerService: aiService, private snackBar: MatSnackBar, private dialog: MatDialog, private swUpdate: SwUpdate) {
+  constructor(private gameService: GameService, private aiPlayerService: AIService,
+              private snackBar: MatSnackBar, private dialog: MatDialog, private swUpdate: SwUpdate) {
     this.goldPlayerType = PlayerType.HUMAN;
     this.bluePlayerType = PlayerType.HUMAN;
   }
@@ -125,7 +126,7 @@ export class MillComponent implements AfterViewInit, OnInit {
     this.drawBoard(this.gameStates[this.currentIndex]);
     this.addCanvasOnClickListener();
     this.addCanvasOnMouseMoveListener();
-    if (this.goldPlayerType == PlayerType.AI) {
+    if (this.goldPlayerType === PlayerType.AI) {
       this.moveAI();
     }
   }
@@ -135,12 +136,12 @@ export class MillComponent implements AfterViewInit, OnInit {
   }
 
   onClickOrTouchListener(event: UIEvent) {
-    if (this.getCurrentPlayer(this.gameStates[this.gameStates.length - 1]) == PlayerType.HUMAN) {
+    if (this.getCurrentPlayer(this.gameStates[this.gameStates.length - 1]) === PlayerType.HUMAN) {
       const relativePosition = this.BoardService.getPositionInCanvas(event);
       const selectedNode: INode = this.findIntersectingPiece(this.gameStates[this.gameStates.length - 1].nodes, relativePosition);
       if (selectedNode) {
-        let newGameState = this.gameService.clone(this.gameStates[this.currentIndex]);
-        let node = newGameState.nodes.find(node => node.x == selectedNode.x && node.y == selectedNode.y);
+        const newGameState = this.gameService.clone(this.gameStates[this.currentIndex]);
+        const node = newGameState.nodes.find(gameNode => gameNode.x === selectedNode.x && gameNode.y === selectedNode.y);
         this.gameService.performMove(newGameState, node);
         this.processMoveResult(newGameState);
       }
@@ -158,7 +159,7 @@ export class MillComponent implements AfterViewInit, OnInit {
 
   addCanvasOnMouseMoveListener(): void {
     this.canvas.addEventListener('mousemove', (mouseEvent) => {
-      if (this.getCurrentPlayer(this.gameStates[this.currentIndex]) == PlayerType.HUMAN) {
+      if (this.getCurrentPlayer(this.gameStates[this.currentIndex]) === PlayerType.HUMAN) {
         const relativePosition = this.BoardService.getMousePositionInCanvas(mouseEvent);
         const hoveredNode: INode = this.findIntersectingPiece(this.gameStates[this.currentIndex].nodes, relativePosition);
         let isMoveAllowed = false;
@@ -174,7 +175,8 @@ export class MillComponent implements AfterViewInit, OnInit {
             case MoveType.MOVE_ANYWHERE:
               isMoveAllowed = this.gameService.isMoveAllowed(this.gameStates[this.currentIndex], hoveredNode);
               if (!isMoveAllowed && this.gameStates[this.currentIndex].chosenForShift != null) {
-                isMoveAllowed = this.gameService.isShiftToAllowed(this.gameStates[this.currentIndex], this.gameStates[this.currentIndex].chosenForShift, hoveredNode);
+                isMoveAllowed = this.gameService.isShiftToAllowed(this.gameStates[this.currentIndex],
+                  this.gameStates[this.currentIndex].chosenForShift, hoveredNode);
               }
               break;
           }
@@ -189,7 +191,7 @@ export class MillComponent implements AfterViewInit, OnInit {
   }
 
   processMoveResult(gameState: IGameState): void {
-    if (this.currentIndex == 0) {
+    if (this.currentIndex === 0) {
       this.gameStartTime = Date.now();
     }
     if (gameState != null) {
@@ -198,9 +200,9 @@ export class MillComponent implements AfterViewInit, OnInit {
       this.gameStates.push(gameState);
       this.currentIndex++;
       this.drawBoard(this.gameStates[this.currentIndex]);
-      if (gameState.moveType == MoveType.END_GAME || gameState.moveType == MoveType.DRAW) {
+      if (gameState.moveType === MoveType.END_GAME || gameState.moveType === MoveType.DRAW) {
         this.openGameOverDialog();
-      } else if (this.getCurrentPlayer(gameState) == PlayerType.AI) {
+      } else if (this.getCurrentPlayer(gameState) === PlayerType.AI) {
         this.moveAI();
       }
     }
@@ -218,7 +220,8 @@ export class MillComponent implements AfterViewInit, OnInit {
     const legendOffset = 0.15;
     for (let i = 0; i < this.boardSize; ++i) {
       this.BoardService.createCanvas(this.offset / 4, this.offset * (1 + legendOffset) + i * this.baseSize, i.toString());
-      this.BoardService.createCanvas(this.offset * (1 - legendOffset) + i * this.baseSize, this.offset / 2, String.fromCharCode('A'.charCodeAt(0) + i));
+      this.BoardService.createCanvas(this.offset * (1 - legendOffset) + i * this.baseSize,
+      this.offset / 2, String.fromCharCode('A'.charCodeAt(0) + i));
     }
 
     this.goldMoveService.numberOfPieces = gameState.goldPlayerState.piecesInDrawer;
@@ -234,7 +237,8 @@ export class MillComponent implements AfterViewInit, OnInit {
   moveAI() {
     let state: IGameState = null;
     new Promise((resolve, reject) => setTimeout(() => {
-      state = this.aiPlayerService.moveAI(this.gameStates[this.currentIndex], this.getAlgorithmForCurrentAI(), this.getHeuristicsForCurrentAI(), this.getCurrentAiPathCounter());
+      state = this.aiPlayerService.moveAI(this.gameStates[this.currentIndex],
+        this.getAlgorithmForCurrentAI(), this.getHeuristicsForCurrentAI(), this.getCurrentAiPathCounter());
       if (state) {
         this.showSnackBarWithMoveResult(state);
       } else {
@@ -273,11 +277,11 @@ export class MillComponent implements AfterViewInit, OnInit {
 
   showSnackBarWithMoveResult(gameState: IGameState) {
     const moves = gameState.moves.filter(move => move.count === gameState.moveCount);
-    let message: string = '';
+    let message = '';
     message += '=== ' + moves[0].color + ' === ';
     for (let i = 0; i < moves.length; ++i) {
       message += moves[i].moveType + ': ' + moves[i].moveDescription;
-      if (i != moves.length - 1) {
+      if (i !== moves.length - 1) {
         message += '; ';
       }
     }
@@ -304,7 +308,7 @@ export class MillComponent implements AfterViewInit, OnInit {
 
   switchPlayers(colorString: string) {
     const color: Color = Color[colorString];
-    let playerType = this.getPlayerColor(color);
+    const playerType = this.getPlayerColor(color);
     let result: PlayerType;
     switch (playerType) {
       case PlayerType.HUMAN:
@@ -322,7 +326,7 @@ export class MillComponent implements AfterViewInit, OnInit {
         this.bluePlayerType = result;
         break;
     }
-    if (this.getCurrentPlayer(this.gameStates[this.currentIndex]) == PlayerType.AI) {
+    if (this.getCurrentPlayer(this.gameStates[this.currentIndex]) === PlayerType.AI) {
       this.moveAI();
     }
   }
@@ -339,7 +343,7 @@ export class MillComponent implements AfterViewInit, OnInit {
 
   updateState() {
     this.drawBoard(this.gameStates[this.currentIndex]);
-    if (this.getCurrentPlayer(this.gameStates[this.currentIndex]) == PlayerType.AI) {
+    if (this.getCurrentPlayer(this.gameStates[this.currentIndex]) === PlayerType.AI) {
       this.moveAI();
     }
   }
@@ -354,13 +358,16 @@ export class MillComponent implements AfterViewInit, OnInit {
   }
 
   openGameOverDialog(): void {
-    const gameOverData = new GameOverData(this.gameStates[this.currentIndex].moveType == MoveType.DRAW ? null : this.gameStates[this.currentIndex].turn, this.gameStates[this.currentIndex].moveCount, this.gameStartTime, this.bluePlayerType, this.goldPlayerType, this.gameStates[this.currentIndex].goldPlayerState.points, this.gameStates[this.currentIndex].bluePlayerState.points);
-    if (this.bluePlayerType == PlayerType.AI) {
+    const gameOverData = new GameOverData(this.gameStates[this.currentIndex].moveType === MoveType.DRAW ?
+      null : this.gameStates[this.currentIndex].turn, this.gameStates[this.currentIndex].moveCount,
+      this.gameStartTime, this.bluePlayerType, this.goldPlayerType, this.gameStates[this.currentIndex].goldPlayerState.points,
+      this.gameStates[this.currentIndex].bluePlayerState.points);
+    if (this.bluePlayerType === PlayerType.AI) {
       gameOverData.blueAlgorithm = this.blueAiAlgorithm;
       gameOverData.blueHeuristics = this.blueHeuristics;
       gameOverData.blueAiPathCounter = this.blueAiPathCounter.counter;
     }
-    if (this.goldPlayerType == PlayerType.AI) {
+    if (this.goldPlayerType === PlayerType.AI) {
       gameOverData.goldAlgorithm = this.goldAiAlgorithm;
       gameOverData.goldHeuristics = this.goldHeuristics;
       gameOverData.goldAiPathCounter = this.goldAiPathCounter.counter;
@@ -389,8 +396,8 @@ export class MillComponent implements AfterViewInit, OnInit {
   downloadTestsResults() {
     const result = JSON.stringify(this.testResults);
     const element = document.createElement('a');
-    element.setAttribute('href', "data:text/json;charset=UTF-8," + encodeURIComponent(result));
-    element.setAttribute('download', "mill-results.json");
+    element.setAttribute('href', 'data:text/json;charset=UTF-8,' + encodeURIComponent(result));
+    element.setAttribute('download', 'mill-results.json');
     element.style.display = 'none';
     document.body.appendChild(element);
     element.click();
@@ -403,7 +410,7 @@ export class MillComponent implements AfterViewInit, OnInit {
     this.testResults = [];
 
     this.reset();
-    if (this.getCurrentPlayer(this.gameStates[this.currentIndex]) == PlayerType.AI) {
+    if (this.getCurrentPlayer(this.gameStates[this.currentIndex]) === PlayerType.AI) {
       this.moveAI();
     }
   }

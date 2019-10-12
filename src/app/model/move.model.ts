@@ -1,6 +1,6 @@
-import { MoveType } from "./enum/moveType.enum";
-import { INode } from "./node.model";
-import { Color } from "./enum/color.enum";
+import { MoveType } from './enum/moveType.enum';
+import { INode } from './node.model';
+import { Color } from './enum/color.enum';
 
 export interface IMove {
   moveType: MoveType;
