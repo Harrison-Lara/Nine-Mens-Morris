@@ -12,11 +12,11 @@ import { GameService } from "./service/game.service";
 import { aiService } from "./service/ai.service";
 import { MatDialog, MatSnackBar } from "@angular/material";
 import { HelpComponent } from "./help/help.component";
-import { EndgameComponent } from "./endgame/endgame.component";
+import { GameOverComponent } from "./gameOver/gameOver.component";
 import { SwUpdate } from "@angular/service-worker";
 import { AlgorithmType } from "./model/enum/algorithmType.enum";
 import { HeuristicsType } from "./model/enum/heuristicsType.enum";
-import { EndgameData } from "./model/endgameData.model";
+import { GameOverData } from "./model/gameOverData.model";
 import { PathCounter } from "./model/pathCounter.model";
 import { TestDefinition } from "./model/testDefinition.model";
 
@@ -59,7 +59,7 @@ export class MillComponent implements AfterViewInit, OnInit {
   testDefinitions: TestDefinition[] = TestDefinition.generateTestDefinitions();
   performTests: boolean = false;
   testCounter = 0;
-  testResults: EndgameData[] = [];
+  testResults: GameOverData[] = [];
 
   constructor(private gameService: GameService, private aiPlayerService: aiService, private snackBar: MatSnackBar, private dialog: MatDialog, private swUpdate: SwUpdate) {
     this.goldPlayerType = PlayerType.HUMAN;
@@ -199,7 +199,7 @@ export class MillComponent implements AfterViewInit, OnInit {
       this.currentIndex++;
       this.drawBoard(this.gameStates[this.currentIndex]);
       if (gameState.moveType == MoveType.END_GAME || gameState.moveType == MoveType.DRAW) {
-        this.openEndgameDialog();
+        this.openGameOverDialog();
       } else if (this.getCurrentPlayer(gameState) == PlayerType.AI) {
         this.moveAI();
       }
@@ -353,29 +353,29 @@ export class MillComponent implements AfterViewInit, OnInit {
     this.drawBoard(this.gameStates[this.currentIndex]);
   }
 
-  openEndgameDialog(): void {
-    const endgameData = new EndgameData(this.gameStates[this.currentIndex].moveType == MoveType.DRAW ? null : this.gameStates[this.currentIndex].turn, this.gameStates[this.currentIndex].moveCount, this.gameStartTime, this.bluePlayerType, this.goldPlayerType, this.gameStates[this.currentIndex].goldPlayerState.points, this.gameStates[this.currentIndex].bluePlayerState.points);
+  openGameOverDialog(): void {
+    const gameOverData = new GameOverData(this.gameStates[this.currentIndex].moveType == MoveType.DRAW ? null : this.gameStates[this.currentIndex].turn, this.gameStates[this.currentIndex].moveCount, this.gameStartTime, this.bluePlayerType, this.goldPlayerType, this.gameStates[this.currentIndex].goldPlayerState.points, this.gameStates[this.currentIndex].bluePlayerState.points);
     if (this.bluePlayerType == PlayerType.AI) {
-      endgameData.blueAlgorithm = this.blueAiAlgorithm;
-      endgameData.blueHeuristics = this.blueHeuristics;
-      endgameData.blueAiPathCounter = this.blueAiPathCounter.counter;
+      gameOverData.blueAlgorithm = this.blueAiAlgorithm;
+      gameOverData.blueHeuristics = this.blueHeuristics;
+      gameOverData.blueAiPathCounter = this.blueAiPathCounter.counter;
     }
     if (this.goldPlayerType == PlayerType.AI) {
-      endgameData.goldAlgorithm = this.goldAiAlgorithm;
-      endgameData.goldHeuristics = this.goldHeuristics;
-      endgameData.goldAiPathCounter = this.goldAiPathCounter.counter;
+      gameOverData.goldAlgorithm = this.goldAiAlgorithm;
+      gameOverData.goldHeuristics = this.goldHeuristics;
+      gameOverData.goldAiPathCounter = this.goldAiPathCounter.counter;
     }
     if (!this.performTests) {
-      const dialogRef = this.dialog.open(EndgameComponent, {
+      const dialogRef = this.dialog.open(GameOverComponent, {
         width: '300px',
-        data: endgameData
+        data: gameOverData
       });
 
       dialogRef.afterClosed().subscribe(result => {
         this.reset();
       });
     } else {
-      this.testResults.push(endgameData);
+      this.testResults.push(gameOverData);
       if (this.testCounter < this.testDefinitions.length - 1) {
         this.testCounter++;
         this.reset();

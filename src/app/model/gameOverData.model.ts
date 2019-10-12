@@ -3,7 +3,7 @@ import { PlayerType } from "./enum/playerType.enum";
 import { AlgorithmType } from "./enum/algorithmType.enum";
 import { HeuristicsType } from "./enum/heuristicsType.enum";
 
-export class EndgameData {
+export class GameOverData {
   public timeCounter: string;
   public blueAlgorithm: AlgorithmType;
   public goldAlgorithm: AlgorithmType;

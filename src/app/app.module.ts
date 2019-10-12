@@ -14,21 +14,20 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
-
 import { environment } from '../environments/environment';
 import { HelpComponent } from './help/help.component';
 import { MillComponent } from './game.component';
-import { EndgameComponent } from './endgame/endgame.component';
+import { GameOverComponent } from './gameOver/gameOver.component';
 
 @NgModule({
   declarations: [
     MillComponent,
     HelpComponent,
-    EndgameComponent
+    GameOverComponent
   ],
   entryComponents: [
     HelpComponent,
-    EndgameComponent
+    GameOverComponent
   ],
   imports: [
     BrowserModule,

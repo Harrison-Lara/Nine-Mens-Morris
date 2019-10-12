@@ -445,13 +445,13 @@ export class GameService {
   }
 
   getValueNaive(gameState: IGameState): number {
-    let endgameMultiplier = 1;
+    let gameOverMultiplier = 1;
     if (gameState.moveType == MoveType.END_GAME) {
-      endgameMultiplier = 10;
+      gameOverMultiplier = 10;
     } else if (gameState.moveType == MoveType.DRAW) {
-      endgameMultiplier = 0;
+      gameOverMultiplier = 0;
     }
-    return ((gameState.bluePlayerState.points - gameState.goldPlayerState.points) / (gameState.bluePlayerState.points + gameState.goldPlayerState.points + 1)) * endgameMultiplier;
+    return ((gameState.bluePlayerState.points - gameState.goldPlayerState.points) / (gameState.bluePlayerState.points + gameState.goldPlayerState.points + 1)) * gameOverMultiplier;
   }
 
   getValueAlmostMill(gameState: IGameState): number {
