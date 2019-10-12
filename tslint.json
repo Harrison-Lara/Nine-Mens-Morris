@@ -47,7 +47,8 @@
     ],
     "typedef": [
       true,
-      "parameter"
+      "parameter",
+      "arrow-parameter"
     ],
     "no-non-null-assertion": true,
     "no-object-literal-type-assertion": true,
