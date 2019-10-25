@@ -1,7 +1,7 @@
-import { Color } from "./enum/color.enum";
-import { PlayerType } from "./enum/playerType.enum";
-import { AlgorithmType } from "./enum/algorithmType.enum";
-import { HeuristicsType } from "./enum/heuristicsType.enum";
+import { Color } from './enum/color.enum';
+import { PlayerType } from './enum/playerType.enum';
+import { AlgorithmType } from './enum/algorithmType.enum';
+import { HeuristicsType } from './enum/heuristicsType.enum';
 
 export class GameOverData {
   public timeCounter: string;
@@ -12,7 +12,8 @@ export class GameOverData {
   public blueAiPathCounter: number;
   public goldAiPathCounter: number;
 
-  constructor(public winingPlayer: Color, public moveCount: number, timeStart: number, public bluePlayerType: PlayerType, public goldPlayerType: PlayerType, public goldPoints: number, public bluePoints: number) {
+  constructor(public winingPlayer: Color, public moveCount: number, timeStart: number,
+              public bluePlayerType: PlayerType, public goldPlayerType: PlayerType, public goldPoints: number, public bluePoints: number) {
     this.timeCounter = ((Date.now() - timeStart) / 60000).toFixed(2);
   }
 }

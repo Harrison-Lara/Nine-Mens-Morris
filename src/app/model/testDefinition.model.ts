@@ -1,5 +1,5 @@
-import { AlgorithmType } from "./enum/algorithmType.enum";
-import { HeuristicsType } from "./enum/heuristicsType.enum";
+import { AlgorithmType } from './enum/algorithmType.enum';
+import { HeuristicsType } from './enum/heuristicsType.enum';
 
 export class TestDefinition {
   blueAiAlgorithm: AlgorithmType;
@@ -8,7 +8,8 @@ export class TestDefinition {
   blueHeuristics: HeuristicsType;
   goldHeuristics: HeuristicsType;
 
-  constructor(blueAiAlgorithm: AlgorithmType, goldAiAlgorithm: AlgorithmType, blueHeuristics: HeuristicsType, goldHeuristics: HeuristicsType) {
+  constructor(blueAiAlgorithm: AlgorithmType, goldAiAlgorithm: AlgorithmType,
+              blueHeuristics: HeuristicsType, goldHeuristics: HeuristicsType) {
     this.blueAiAlgorithm = blueAiAlgorithm;
     this.goldAiAlgorithm = goldAiAlgorithm;
     this.blueHeuristics = blueHeuristics;

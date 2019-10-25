@@ -1,5 +1,5 @@
-import { INode } from "./node.model";
-import { Color } from "./enum/color.enum";
+import { INode } from './node.model';
+import { Color } from './enum/color.enum';
 
 export interface IPlayerState {
   piecesInDrawer: number;

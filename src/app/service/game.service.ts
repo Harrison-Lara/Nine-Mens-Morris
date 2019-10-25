@@ -1,21 +1,25 @@
 import { Injectable } from '@angular/core';
-import { Color, getOpponentColor } from "../model/enum/color.enum";
-import { changeColor, INode } from "../model/node.model";
-import { MoveType } from "../model/enum/moveType.enum";
-import { MoveResult } from "../model/enum/moveResult.enum";
-import { IPlayerState } from "../model/playerState.model";
-import { GameState, IGameState } from "../model/gameState.model";
+import { Color, getOpponentColor } from '../model/enum/color.enum';
+import { changeColor, INode } from '../model/node.model';
+import { MoveType } from '../model/enum/moveType.enum';
+import { MoveResult } from '../model/enum/moveResult.enum';
+import { IPlayerState } from '../model/playerState.model';
+import { GameState, IGameState } from '../model/gameState.model';
 import { cloneDeep } from 'lodash';
-import { BasicMove, ShiftMove } from "../model/move.model";
-import { HeuristicsType } from "../model/enum/heuristicsType.enum";
+import { BasicMove, ShiftMove } from '../model/move.model';
+import { HeuristicsType } from '../model/enum/heuristicsType.enum';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
-  private boardCenter: number = 3;
 
   constructor() {
+  }
+  private boardCenter = 3;
+
+  private static compareNodesPosition(node1: INode, node2: INode): boolean {
+    return node1.x === node2.x && node1.y === node2.y;
   }
 
   clone(gameState: IGameState): GameState {
@@ -58,7 +62,7 @@ export class GameService {
   }
 
   private findDestinationsForNormalMove(gameState: IGameState): INode[] {
-    let pieces: INode[] = gameState.nodes.filter(node => node.color === Color.GRAY);
+    const pieces: INode[] = gameState.nodes.filter(node => node.color === Color.GRAY);
     return pieces;
   }
 
@@ -75,9 +79,9 @@ export class GameService {
   private findPiecesNotInMills(pieces: INode[], color: Color): INode[] {
     let temp: INode[] = [];
     for (let i = 0; i < 7; ++i) {
-      let xPieces = pieces.filter(piece => piece.x == i && piece.color == color);
-      let yPieces = pieces.filter(piece => piece.y == i && piece.color == color);
-      if (i == 3) {
+      const xPieces = pieces.filter(piece => piece.x === i && piece.color === color);
+      const yPieces = pieces.filter(piece => piece.y === i && piece.color === color);
+      if (i === 3) {
         temp = this.addToResultWhenInMill(temp, xPieces.filter(piece => piece.y < 3));
         temp = this.addToResultWhenInMill(temp, xPieces.filter(piece => piece.y > 3));
         temp = this.addToResultWhenInMill(temp, yPieces.filter(piece => piece.x < 3));
@@ -87,14 +91,14 @@ export class GameService {
       temp = this.addToResultWhenInMill(temp, yPieces);
     }
     let result: INode[] = pieces;
-    for (let pieceTemp of temp) {
-      result = result.filter(piece => !(piece.x == pieceTemp.x && piece.y == pieceTemp.y));
+    for (const pieceTemp of temp) {
+      result = result.filter(piece => !(piece.x === pieceTemp.x && piece.y === pieceTemp.y));
     }
     return result;
   }
 
   private addToResultWhenInMill(result: INode[], possibleMill: INode[]): INode[] {
-    if (possibleMill.length == 3) {
+    if (possibleMill.length === 3) {
       result = [...result, ...possibleMill];
     }
     return result;
@@ -106,12 +110,13 @@ export class GameService {
 
 
   isShiftToAllowed(gameState: IGameState, selectedNode: INode, destinationNode: INode): boolean {
-    if (selectedNode.color != gameState.turn) {
+    if (selectedNode.color !== gameState.turn) {
       return false;
     }
     switch (gameState.moveType) {
       case MoveType.MOVE_NEARBY:
-        return this.findDestinationsForNearbyMove(gameState, selectedNode).find(node => GameService.compareNodesPosition(node, destinationNode)) != null;
+        return this.findDestinationsForNearbyMove(gameState, selectedNode)
+        .find(node => GameService.compareNodesPosition(node, destinationNode)) != null;
       case MoveType.MOVE_ANYWHERE:
         return gameState.nodes.find(node => node.color === Color.GRAY && GameService.compareNodesPosition(node, destinationNode)) != null;
       default:
@@ -206,27 +211,29 @@ export class GameService {
     const result: INode[] = [];
 
     for (const node of foundNodes) {
-      if (Math.abs(this.boardCenter - chosenNode.x) == Math.abs(this.boardCenter - chosenNode.y)) {
-        if ((node.x == chosenNode.x && node.y == this.boardCenter) || (node.x == this.boardCenter && node.y == chosenNode.y)) {
+      if (Math.abs(this.boardCenter - chosenNode.x) === Math.abs(this.boardCenter - chosenNode.y)) {
+        if ((node.x === chosenNode.x && node.y === this.boardCenter) || (node.x === this.boardCenter && node.y === chosenNode.y)) {
           result.push(node);
         }
-      } else if (chosenNode.x == this.boardCenter) {
-        if ((node.y == chosenNode.y
-          && (node.x == chosenNode.x + Math.abs(this.boardCenter - chosenNode.y) || node.x == chosenNode.x - Math.abs(this.boardCenter - chosenNode.y))
-        ) || (node.x == this.boardCenter && (node.y == chosenNode.y + 1 || node.y == chosenNode.y - 1))) {
+      } else if (chosenNode.x === this.boardCenter) {
+        if ((node.y === chosenNode.y
+          && (node.x === chosenNode.x + Math.abs(this.boardCenter - chosenNode.y)
+          || node.x === chosenNode.x - Math.abs(this.boardCenter - chosenNode.y))
+        ) || (node.x === this.boardCenter && (node.y === chosenNode.y + 1 || node.y === chosenNode.y - 1))) {
           result.push(node);
         }
 
-      } else if (chosenNode.y == this.boardCenter) {
-        if ((node.x == chosenNode.x
-          && (node.y == chosenNode.y + Math.abs(this.boardCenter - chosenNode.x) || node.y == chosenNode.y - Math.abs(this.boardCenter - chosenNode.x))
-        ) || (node.y == this.boardCenter && (node.x == chosenNode.x + 1 || node.x == chosenNode.x - 1))) {
+      } else if (chosenNode.y === this.boardCenter) {
+        if ((node.x === chosenNode.x
+          && (node.y === chosenNode.y + Math.abs(this.boardCenter - chosenNode.x)
+          || node.y === chosenNode.y - Math.abs(this.boardCenter - chosenNode.x))
+        ) || (node.y === this.boardCenter && (node.x === chosenNode.x + 1 || node.x === chosenNode.x - 1))) {
           result.push(node);
         }
       }
     }
-    let lastMove = this.getLastMovedPiece(gameState);
-    let previousPosition = this.getPreviousPosition(gameState);
+    const lastMove = this.getLastMovedPiece(gameState);
+    const previousPosition = this.getPreviousPosition(gameState);
 
     if (lastMove && GameService.compareNodesPosition(lastMove, chosenNode) && previousPosition) {
       return result.filter(node => !GameService.compareNodesPosition(node, previousPosition));
@@ -238,17 +245,13 @@ export class GameService {
 
   private findDestinationsForAnywhereMove(gameState: IGameState, chosenNode: INode): INode[] {
     const result: INode[] = gameState.nodes.filter(node => node.color === Color.GRAY);
-    let lastMove = this.getLastMovedPiece(gameState);
-    let previousPosition = this.getPreviousPosition(gameState);
+    const lastMove = this.getLastMovedPiece(gameState);
+    const previousPosition = this.getPreviousPosition(gameState);
     if (lastMove && GameService.compareNodesPosition(lastMove, chosenNode) && previousPosition) {
       return result.filter(node => !GameService.compareNodesPosition(node, previousPosition));
     } else {
       return result;
     }
-  }
-
-  private static compareNodesPosition(node1: INode, node2: INode): boolean {
-    return node1.x == node2.x && node1.y == node2.y;
   }
 
   private performNormalMove(gameState: IGameState, selectedNode: INode): MoveResult {
@@ -301,7 +304,7 @@ export class GameService {
       changeColor(chosen, Color.GRAY);
       gameState.moveCount++;
       gameState.moves.push(new ShiftMove(gameState.moveCount, gameState.turn, gameState.moveType, chosen, selectedNode));
-      return this.putPieceOnBoard(gameState, gameState.nodes.find(node => node.x == selectedNode.x && node.y == selectedNode.y), true);
+      return this.putPieceOnBoard(gameState, gameState.nodes.find(node => node.x === selectedNode.x && node.y === selectedNode.y), true);
     }
     return MoveResult.MOVE_NOT_ALLOWED;
   }
@@ -328,7 +331,7 @@ export class GameService {
         break;
     }
 
-    if (moveResult == MoveResult.FINISHED_TURN) {
+    if (moveResult === MoveResult.FINISHED_TURN) {
       return this.initNewTurn(gameState);
     }
     return moveResult;
@@ -345,7 +348,7 @@ export class GameService {
     if (allPieces < 3) {
       gameState.moveType = MoveType.END_GAME;
     } else if (gameState.movesWithoutMill >= 50) {
-      if (gameState.bluePlayerState.points == gameState.goldPlayerState.points) {
+      if (gameState.bluePlayerState.points === gameState.goldPlayerState.points) {
         gameState.moveType = MoveType.DRAW;
       } else {
         gameState.moveType = MoveType.END_GAME;
@@ -362,7 +365,7 @@ export class GameService {
       gameState.moveType = MoveType.MOVE_NEARBY;
     }
 
-    if (gameState.moveType == MoveType.END_GAME || gameState.moveType == MoveType.DRAW) {
+    if (gameState.moveType === MoveType.END_GAME || gameState.moveType === MoveType.DRAW) {
       if (this.getOpponentPlayer(gameState).points > this.getCurrentPlayer(gameState).points) {
         gameState.turn = this.getOpponentPlayer(gameState).color;
       }
@@ -384,7 +387,7 @@ export class GameService {
 
 
   private checkIfAnyCanMoveNearby(gameState: IGameState): boolean {
-    let currentPlayerPieces = gameState.nodes.filter(node => node.color == gameState.turn);
+    const currentPlayerPieces = gameState.nodes.filter(node => node.color === gameState.turn);
     for (const piece of currentPlayerPieces) {
       if (this.findDestinationsForNearbyMove(gameState, piece).length > 0) {
         return true;
@@ -411,7 +414,7 @@ export class GameService {
 
   private getPonetialNextMoveDestinations(gameState: IGameState, destinations: INode[]): IGameState[] {
     let result: IGameState[] = [];
-    for (let possibleMove of destinations) {
+    for (const possibleMove of destinations) {
       const newGameState = this.clone(gameState);
       const moveDestination = newGameState.nodes.find(node => GameService.compareNodesPosition(node, possibleMove));
       switch (this.performMove(newGameState, moveDestination)) {
@@ -446,17 +449,18 @@ export class GameService {
 
   getValueNaive(gameState: IGameState): number {
     let gameOverMultiplier = 1;
-    if (gameState.moveType == MoveType.END_GAME) {
+    if (gameState.moveType === MoveType.END_GAME) {
       gameOverMultiplier = 10;
-    } else if (gameState.moveType == MoveType.DRAW) {
+    } else if (gameState.moveType === MoveType.DRAW) {
       gameOverMultiplier = 0;
     }
-    return ((gameState.bluePlayerState.points - gameState.goldPlayerState.points) / (gameState.bluePlayerState.points + gameState.goldPlayerState.points + 1)) * gameOverMultiplier;
+    return ((gameState.bluePlayerState.points - gameState.goldPlayerState.points)
+    / (gameState.bluePlayerState.points + gameState.goldPlayerState.points + 1)) * gameOverMultiplier;
   }
 
   getValueAlmostMill(gameState: IGameState): number {
-    let valueNaive = this.getValueNaive(gameState);
-    if (valueNaive != 0) {
+    const valueNaive = this.getValueNaive(gameState);
+    if (valueNaive !== 0) {
       const almostMills = this.countAlmostMills(gameState.nodes, Color.BLUE) - this.countAlmostMills(gameState.nodes, Color.GOLD);
       return valueNaive * 10 + almostMills;
     } else {
@@ -467,26 +471,30 @@ export class GameService {
   private countAlmostMills(pieces: INode[], color: Color): number {
     let result = 0;
     for (let i = 0; i < 7; ++i) {
-      let xPieces = pieces.filter(piece => piece.x == i && piece.color == color);
-      let yPieces = pieces.filter(piece => piece.y == i && piece.color == color);
-      if (i == 3) {
-        if (xPieces.filter(piece => piece.y < 3).length == 2 && !pieces.find(piece => piece.x == i && piece.y < 3 && piece.color == getOpponentColor(color))) {
+      const xPieces = pieces.filter(piece => piece.x === i && piece.color === color);
+      const yPieces = pieces.filter(piece => piece.y === i && piece.color === color);
+      if (i === 3) {
+        if (xPieces.filter(piece => piece.y < 3).length === 2
+        && !pieces.find(piece => piece.x === i && piece.y < 3 && piece.color === getOpponentColor(color))) {
           result++;
         }
-        if (xPieces.filter(piece => piece.y > 3).length == 2 && !pieces.find(piece => piece.x == i && piece.y > 3 && piece.color == getOpponentColor(color))) {
+        if (xPieces.filter(piece => piece.y > 3).length === 2
+        && !pieces.find(piece => piece.x === i && piece.y > 3 && piece.color === getOpponentColor(color))) {
           result++;
         }
-        if (yPieces.filter(piece => piece.x < 3).length == 2 && !pieces.find(piece => piece.y == i && piece.x < 3 && piece.color == getOpponentColor(color))) {
+        if (yPieces.filter(piece => piece.x < 3).length === 2
+        && !pieces.find(piece => piece.y === i && piece.x < 3 && piece.color === getOpponentColor(color))) {
           result++;
         }
-        if (yPieces.filter(piece => piece.x > 3).length == 2 && !pieces.find(piece => piece.y == i && piece.x < 3 && piece.color == getOpponentColor(color))) {
+        if (yPieces.filter(piece => piece.x > 3).length === 2
+        && !pieces.find(piece => piece.y === i && piece.x < 3 && piece.color === getOpponentColor(color))) {
           result++;
         }
       } else {
-        if (xPieces.length == 2 && !pieces.find(piece => piece.x == i && piece.color == getOpponentColor(color))) {
+        if (xPieces.length === 2 && !pieces.find(piece => piece.x === i && piece.color === getOpponentColor(color))) {
           result++;
         }
-        if (yPieces.length == 2 && !pieces.find(piece => piece.y == i && piece.color == getOpponentColor(color))) {
+        if (yPieces.length === 2 && !pieces.find(piece => piece.y === i && piece.color === getOpponentColor(color))) {
           result++;
         }
       }
