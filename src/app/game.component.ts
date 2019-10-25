@@ -62,7 +62,7 @@ export class MillComponent implements AfterViewInit, OnInit {
   testResults: GameOverData[] = [];
 
   constructor(private gameService: GameService, private aiPlayerService: AIService,
-              private snackBar: MatSnackBar, private dialog: MatDialog, private swUpdate: SwUpdate) {
+    private snackBar: MatSnackBar, private dialog: MatDialog, private swUpdate: SwUpdate) {
     this.goldPlayerType = PlayerType.HUMAN;
     this.bluePlayerType = PlayerType.HUMAN;
   }
@@ -221,7 +221,7 @@ export class MillComponent implements AfterViewInit, OnInit {
     for (let i = 0; i < this.boardSize; ++i) {
       this.BoardService.createCanvas(this.offset / 4, this.offset * (1 + legendOffset) + i * this.baseSize, i.toString());
       this.BoardService.createCanvas(this.offset * (1 - legendOffset) + i * this.baseSize,
-      this.offset / 2, String.fromCharCode('A'.charCodeAt(0) + i));
+        this.offset / 2, String.fromCharCode('A'.charCodeAt(0) + i));
     }
 
     this.goldMoveService.numberOfPieces = gameState.goldPlayerState.piecesInDrawer;
@@ -236,7 +236,7 @@ export class MillComponent implements AfterViewInit, OnInit {
 
   moveAI() {
     let state: IGameState = null;
-    new Promise((resolve, reject) => setTimeout(() => {
+    new Promise((resolve) => setTimeout(() => {
       state = this.aiPlayerService.moveAI(this.gameStates[this.currentIndex],
         this.getAlgorithmForCurrentAI(), this.getHeuristicsForCurrentAI(), this.getCurrentAiPathCounter());
       if (state) {
