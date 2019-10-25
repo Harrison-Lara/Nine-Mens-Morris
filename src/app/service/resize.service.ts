@@ -4,7 +4,7 @@ export function getWinSize(): number {
   measures.push(window.innerHeight);
   measures.push(screen.availWidth);
   measures.push(screen.availHeight);
-  measures.sort((a, b) => a - b);
+  measures.sort((a: any, b: any) => a - b);
   return measures[0];
 }
 

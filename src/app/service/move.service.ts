@@ -6,7 +6,7 @@ export class MoveService {
   BoardService: BoardService;
 
   constructor(private canvas: HTMLCanvasElement, private baseSize: number,
-              private offset: number, public numberOfPieces, private color: Color,
+              private offset: number, public numberOfPieces: string | number, private color: Color,
               private radiusSize: number, private baseRadiusSize: number) {
     this.BoardService = new BoardService(canvas, baseSize, offset, baseRadiusSize);
     this.canvas.width = (this.baseSize) * 2;

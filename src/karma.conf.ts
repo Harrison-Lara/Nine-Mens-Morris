@@ -1,11 +1,11 @@
-module.exports = function (config: any) {
+module.exports = function(config: any) {
   config.set({
-    frameworks: ["jasmine", "karma-typescript"],
+    frameworks: ['jasmine', 'karma-typescript'],
     preprocessors: {
-      "**/*.ts": "karma-typescript"
+      '**/*.ts': 'karma-typescript'
     },
-    reporters: ["progress", "karma-typescript"],
-    browsers: ["Chrome"],
+    reporters: ['progress', 'karma-typescript'],
+    browsers: ['Chrome'],
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
