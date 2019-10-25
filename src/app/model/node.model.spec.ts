@@ -1,21 +1,19 @@
 import { async, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HelpComponent } from './help.component';
+import { changeColor } from './node.model';
 
-describe('Help Component', () => {
+describe('Node Model', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule
       ],
       declarations: [
-        HelpComponent
+        changeColor
       ],
     }).compileComponents();
   }));
-  it('should render the Help component', async(() => {
-    const fixture = TestBed.createComponent(HelpComponent);
-    const comp = fixture.debugElement.componentInstance;
-    expect(comp).toBeTruthy();
+  it('should output the radius if gray', async(() => {
+    expect(changeColor).toEqual(2)
   }));
 });

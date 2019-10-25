@@ -4,6 +4,9 @@
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "removeComments": false,
     "declaration": false,
     "module": "es2015",
     "moduleResolution": "node",
@@ -15,8 +18,15 @@
       "node_modules/@types"
     ],
     "lib": [
-      "es2018",
+      "es6",
       "dom"
     ],
   },
+  "types": [
+    "jasmine"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
 }
