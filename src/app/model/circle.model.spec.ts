@@ -9,6 +9,3 @@ describe('Circle Model', () => {
     expect(testCircle.radius).toEqual(1);
   }));
 });
-
-//remove this when tests are written
-//test.skip('skip', () => { }) 
