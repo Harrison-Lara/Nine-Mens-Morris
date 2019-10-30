@@ -47,5 +47,56 @@
     "tslib": "^1.10.0",
     "tslint": "~5.11.0",
     "typescript": "~3.5.2"
+  },
+  "jest": {
+    "verbose": true,
+    "preset": "ts-jest",
+    "globals": {
+      "ts-jest": {
+        "__TRANSFORM_HTML__": true,
+        "diagnostics": {
+          "ignoreCodes": [
+            6133,
+            1219,
+            151001
+          ]
+        },
+        "tsConfig": "./tsconfig.json"
+      }
+    },
+    "transform": {
+      "^.+\\.ts?$": "ts-jest",
+      "^.+\\.html?$": "ts-jest"
+    },
+    "collectCoverageFrom": [
+      "src/**/*.{ts}",
+      "src/**/**/*.{ts}",
+      "!**/*.spec.{ts}",
+      "!**/*.interface.{ts}",
+      "!**/index.{ts}",
+      "!**/*.d.ts"
+    ],
+    "coveragePathIgnorePatterns": [
+      "(Wrapper)"
+    ],
+    "collectCoverage": true,
+    "reporters": [
+      "default",
+      [
+        "jest-junit",
+        {
+          "outputDirectory": "coverage"
+        }
+      ]
+    ],
+    "coverageReporters": [
+      "text",
+      "lcov",
+      "cobertura"
+    ],
+    "coverageDirectory": "./.coverage",
+    "testPathIgnorePatterns": [
+      "./node_modules/"
+    ]
   }
 }
