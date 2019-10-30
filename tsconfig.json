@@ -23,7 +23,7 @@
     ],
   },
   "types": [
-    "jasmine"
+    "jest"
   ],
   "exclude": [
     "node_modules",

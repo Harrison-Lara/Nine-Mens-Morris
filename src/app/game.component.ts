@@ -62,7 +62,7 @@ export class MillComponent implements AfterViewInit, OnInit {
   testResults: GameOverData[] = [];
 
   constructor(private gameService: GameService, private aiPlayerService: AIService,
-              private snackBar: MatSnackBar, private dialog: MatDialog, private swUpdate: SwUpdate) {
+    private snackBar: MatSnackBar, private dialog: MatDialog, private swUpdate: SwUpdate) {
     this.goldPlayerType = PlayerType.HUMAN;
     this.bluePlayerType = PlayerType.HUMAN;
   }
