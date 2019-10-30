@@ -6,9 +6,7 @@ describe('Node Model', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
-      ],
-      declarations: [
+        RouterTestingModule,
         changeColor
       ],
     }).compileComponents();

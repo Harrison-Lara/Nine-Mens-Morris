@@ -1,6 +1,6 @@
 # Nine Mens Morris
 
-Created with Angular, Typescript, Karma
+Created with Angular, Typescript, Jest
 
 AI implenentation: Alpha-Beta and Minimax
 

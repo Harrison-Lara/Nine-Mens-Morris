@@ -6,9 +6,7 @@ describe('Circle Model', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
-      ],
-      declarations: [
+        RouterTestingModule,
         changeColor
       ],
     }).compileComponents();
