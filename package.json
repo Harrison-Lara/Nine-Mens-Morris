@@ -68,18 +68,18 @@
       "^.+\\.ts?$": "ts-jest",
       "^.+\\.html?$": "ts-jest"
     },
+    "collectCoverage": true,
     "collectCoverageFrom": [
-      "src/**/*.{ts}",
-      "src/**/**/*.{ts}",
-      "!**/*.spec.{ts}",
-      "!**/*.interface.{ts}",
-      "!**/index.{ts}",
+      "src/**/*.ts",
+      "src/**/**/*.ts",
+      "!**/*.spec.ts",
+      "!**/*.interface.ts",
+      "!**/index.ts",
       "!**/*.d.ts"
     ],
     "coveragePathIgnorePatterns": [
       "(Wrapper)"
     ],
-    "collectCoverage": true,
     "reporters": [
       "default",
       [
