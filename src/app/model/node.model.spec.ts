@@ -1,19 +1,13 @@
-// import { async, TestBed } from '@angular/core/testing';
-// import { RouterTestingModule } from '@angular/router/testing';
-// import { changeColor } from './node.model';
+import { async, TestBed } from '@angular/core/testing';
+import { changeColor, Node } from './node.model';
+import { Color } from './enum/color.enum';
 
-// describe('Node Model', () => {
-//   beforeEach(async(() => {
-//     TestBed.configureTestingModule({
-//       imports: [
-//         RouterTestingModule,
-//         changeColor
-//       ],
-//     }).compileComponents();
-//   }));
-//   it('should output the radius if gray', async(() => {
-//     expect(changeColor).toEqual(2)
-//   }));
-// });
+describe('Node Model', () => {
+    it('should output the radius if gray', async(() => {
+      const testCircle = new Node(0, 0, 2);
+      changeColor(testCircle, Color.GRAY);
+      expect(testCircle.radius).toEqual(1);
+    }));
+  });
 
-test.skip('skip', () => { }) //remove this when tests are written
+//test.skip('skip', () => { }) //remove this when tests are written
