@@ -1,7 +1,6 @@
 import { async } from '@angular/core/testing';
 import { Color } from './enum/color.enum';
 import { GameOverData } from './gameOverData.model'
-import { INode } from './node.model';
 import { PlayerType } from './enum/playerType.enum';
 
 describe('Game Over Model', () => {

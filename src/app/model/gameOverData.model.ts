@@ -13,7 +13,7 @@ export class GameOverData {
   public goldAiPathCounter: number;
 
   constructor(public winingPlayer: Color, public moveCount: number, timeStart: number,
-              public bluePlayerType: PlayerType, public goldPlayerType: PlayerType, public goldPoints: number, public bluePoints: number) {
+    public bluePlayerType: PlayerType, public goldPlayerType: PlayerType, public goldPoints: number, public bluePoints: number) {
     this.timeCounter = ((Date.now() - timeStart) / 60000).toFixed(2);
   }
 }
