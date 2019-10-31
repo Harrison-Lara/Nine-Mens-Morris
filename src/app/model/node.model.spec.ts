@@ -1,4 +1,4 @@
-import { async, TestBed } from '@angular/core/testing';
+import { async } from '@angular/core/testing';
 import { changeColor, Node } from './node.model';
 import { Color } from './enum/color.enum';
 
