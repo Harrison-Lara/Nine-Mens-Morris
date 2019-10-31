@@ -116,7 +116,7 @@ export class GameService {
     switch (gameState.moveType) {
       case MoveType.MOVE_NEARBY:
         return this.findDestinationsForNearbyMove(gameState, selectedNode)
-        .find(node => GameService.compareNodesPosition(node, destinationNode)) != null;
+          .find(node => GameService.compareNodesPosition(node, destinationNode)) != null;
       case MoveType.MOVE_ANYWHERE:
         return gameState.nodes.find(node => node.color === Color.GRAY && GameService.compareNodesPosition(node, destinationNode)) != null;
       default:
@@ -218,7 +218,7 @@ export class GameService {
       } else if (chosenNode.x === this.boardCenter) {
         if ((node.y === chosenNode.y
           && (node.x === chosenNode.x + Math.abs(this.boardCenter - chosenNode.y)
-          || node.x === chosenNode.x - Math.abs(this.boardCenter - chosenNode.y))
+            || node.x === chosenNode.x - Math.abs(this.boardCenter - chosenNode.y))
         ) || (node.x === this.boardCenter && (node.y === chosenNode.y + 1 || node.y === chosenNode.y - 1))) {
           result.push(node);
         }
@@ -226,7 +226,7 @@ export class GameService {
       } else if (chosenNode.y === this.boardCenter) {
         if ((node.x === chosenNode.x
           && (node.y === chosenNode.y + Math.abs(this.boardCenter - chosenNode.x)
-          || node.y === chosenNode.y - Math.abs(this.boardCenter - chosenNode.x))
+            || node.y === chosenNode.y - Math.abs(this.boardCenter - chosenNode.x))
         ) || (node.y === this.boardCenter && (node.x === chosenNode.x + 1 || node.x === chosenNode.x - 1))) {
           result.push(node);
         }
@@ -455,7 +455,7 @@ export class GameService {
       gameOverMultiplier = 0;
     }
     return ((gameState.bluePlayerState.points - gameState.goldPlayerState.points)
-    / (gameState.bluePlayerState.points + gameState.goldPlayerState.points + 1)) * gameOverMultiplier;
+      / (gameState.bluePlayerState.points + gameState.goldPlayerState.points + 1)) * gameOverMultiplier;
   }
 
   getValueAlmostMill(gameState: IGameState): number {
@@ -475,19 +475,19 @@ export class GameService {
       const yPieces = pieces.filter(piece => piece.y === i && piece.color === color);
       if (i === 3) {
         if (xPieces.filter(piece => piece.y < 3).length === 2
-        && !pieces.find(piece => piece.x === i && piece.y < 3 && piece.color === getOpponentColor(color))) {
+          && !pieces.find(piece => piece.x === i && piece.y < 3 && piece.color === getOpponentColor(color))) {
           result++;
         }
         if (xPieces.filter(piece => piece.y > 3).length === 2
-        && !pieces.find(piece => piece.x === i && piece.y > 3 && piece.color === getOpponentColor(color))) {
+          && !pieces.find(piece => piece.x === i && piece.y > 3 && piece.color === getOpponentColor(color))) {
           result++;
         }
         if (yPieces.filter(piece => piece.x < 3).length === 2
-        && !pieces.find(piece => piece.y === i && piece.x < 3 && piece.color === getOpponentColor(color))) {
+          && !pieces.find(piece => piece.y === i && piece.x < 3 && piece.color === getOpponentColor(color))) {
           result++;
         }
         if (yPieces.filter(piece => piece.x > 3).length === 2
-        && !pieces.find(piece => piece.y === i && piece.x < 3 && piece.color === getOpponentColor(color))) {
+          && !pieces.find(piece => piece.y === i && piece.x < 3 && piece.color === getOpponentColor(color))) {
           result++;
         }
       } else {
