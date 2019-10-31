@@ -9,7 +9,7 @@ export class TestDefinition {
   goldHeuristics: HeuristicsType;
 
   constructor(blueAiAlgorithm: AlgorithmType, goldAiAlgorithm: AlgorithmType,
-              blueHeuristics: HeuristicsType, goldHeuristics: HeuristicsType) {
+    blueHeuristics: HeuristicsType, goldHeuristics: HeuristicsType) {
     this.blueAiAlgorithm = blueAiAlgorithm;
     this.goldAiAlgorithm = goldAiAlgorithm;
     this.blueHeuristics = blueHeuristics;

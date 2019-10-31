@@ -1,23 +1,10 @@
-// import { async, TestBed } from '@angular/core/testing';
-// import { RouterTestingModule } from '@angular/router/testing';
-// import { GameOverComponent } from './gameOver.component';
+import { async } from '@angular/core/testing';
+import { GameOverComponent } from './gameOver.component';
 
-// describe('Game Over', () => {
-//   beforeEach(async(() => {
-//     TestBed.configureTestingModule({
-//       imports: [
-//         RouterTestingModule
-//       ],
-//       declarations: [
-//         GameOverComponent
-//       ],
-//     }).compileComponents();
-//   }));
-//   it('should render Game Over component', async(() => {
-//     const fixture = TestBed.createComponent(GameOverComponent);
-//     const comp = fixture.debugElement.componentInstance;
-//     expect(comp).toBeTruthy();
-//   }));
-// });
+describe('Game Over Component', () => {
+  it('should return the Game Over Component', async(() => {
 
-test.skip('skip', () => { }) //remove this when tests are written
+    const gameOver = GameOverComponent;
+    expect(gameOver).toHaveLength(2)
+  }))
+});
