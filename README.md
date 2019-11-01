@@ -27,6 +27,6 @@ The reports will be incremental, expanded and improved upon from one sprint to t
  
 • Sprint 1: Create a project plan, specify allrequirementsofthe target software (i.e., all user stories and their acceptance criteriafor a human player to play against either a human or a computer opponent), and implement the primitive functions (e.g., board visualization and pieceplacementfor both players). Note that the board class should be separated from its graphical user interface. 
 
-• Sprint 2: Implement all the functions for a human player to play a complete game against a human opponent. Such functions include placing pieces, checking mill formation, moving pieces, flying pieces, and determining whether the game is over or not.•Sprint 3: Enhance the software to allowa human player to play against a computer opponent.The computer opponent should make a reasonable attempt at beating the human player. Optimal or perfect play is not required, though. 
+• Sprint 2: Implement all the functions for a human player to play a complete game against a human opponent. Such functions include placing pieces, checking mill formation, moving pieces, flying pieces, and determining whether the game is over or not.
 
-• Sprint 3: Enhance the software to allowa human player to play against a computer opponent.The computer opponent should make a reasonable attempt at beating the human player. Optimal or perfect play is not required, though. 
+• Sprint 3: Enhance the software to allow a human player to play against a computer opponent.The computer opponent should make a reasonable attempt at beating the human player. Optimal or perfect play is not required, though. 
