@@ -75,7 +75,9 @@
       "!**/*.spec.ts",
       "!**/*.interface.ts",
       "!**/index.ts",
-      "!**/*.d.ts"
+      "!**/*.d.ts",
+      "!src/main.ts",
+      "!src/polyfills.ts"
     ],
     "coveragePathIgnorePatterns": [
       "(Wrapper)"
