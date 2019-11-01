@@ -12,5 +12,4 @@ export class HelpComponent {
     public dialogRef: MatDialogRef<HelpComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
   }
-
 }
