@@ -238,4 +238,168 @@ describe('Game Service', () => {
     const getPlayer = new GameService().getOpponentPlayer(state)
     expect(getPlayer).toEqual(expected)
   }));
+
+  it('should return the performMove method -- END_GAME', async(() => {
+
+    const move = new GameService().performMove(mockGameState, mockNode)
+    expect(move).toEqual(4)
+  }));
+
+  it('should return the performMove method -- NORMAL', async(() => {
+    const state = {
+      turn: Color.BLUE,
+      moveType: MoveType.NORMAL,
+      nodes: nodes,
+      shiftDestinations: nodes,
+      goldPlayerState: playerState,
+      bluePlayerState: playerState,
+      chosenForShift: mockNode,
+      allowedMoves: nodes,
+      moveCount: 5,
+      moves: moves,
+      movesWithoutMill: 2
+    }
+    const move = new GameService().performMove(state, mockNode)
+    expect(move).toEqual(1)
+  }));
+
+  it('should return the performMove method -- REMOVE_OPPONENT', async(() => {
+    const state = {
+      turn: Color.BLUE,
+      moveType: MoveType.REMOVE_OPPONENT,
+      nodes: nodes,
+      shiftDestinations: nodes,
+      goldPlayerState: playerState,
+      bluePlayerState: playerState,
+      chosenForShift: mockNode,
+      allowedMoves: nodes,
+      moveCount: 5,
+      moves: moves,
+      movesWithoutMill: 2
+    }
+    const move = new GameService().performMove(state, mockNode)
+    expect(move).toEqual(1)
+  }));
+
+  it('should return the performMove method -- REMOVE_OPPONENT_2', async(() => {
+    const state = {
+      turn: Color.BLUE,
+      moveType: MoveType.REMOVE_OPPONENT_2,
+      nodes: nodes,
+      shiftDestinations: nodes,
+      goldPlayerState: playerState,
+      bluePlayerState: playerState,
+      chosenForShift: mockNode,
+      allowedMoves: nodes,
+      moveCount: 5,
+      moves: moves,
+      movesWithoutMill: 2
+    }
+    const move = new GameService().performMove(state, mockNode)
+    expect(move).toEqual(0)
+  }));
+
+  it('should return the performMove method -- ANYWHERE', async(() => {
+    const state = {
+      turn: Color.BLUE,
+      moveType: MoveType.MOVE_ANYWHERE,
+      nodes: nodes,
+      shiftDestinations: nodes,
+      goldPlayerState: playerState,
+      bluePlayerState: playerState,
+      chosenForShift: mockNode,
+      allowedMoves: nodes,
+      moveCount: 5,
+      moves: moves,
+      movesWithoutMill: 2
+    }
+    const move = new GameService().performMove(state, mockNode)
+    expect(move).toEqual(3)
+  }));
+
+  it('should return the performMove method -- NEARBY', async(() => {
+    const state = {
+      turn: Color.BLUE,
+      moveType: MoveType.MOVE_NEARBY,
+      nodes: nodes,
+      shiftDestinations: nodes,
+      goldPlayerState: playerState,
+      bluePlayerState: playerState,
+      chosenForShift: mockNode,
+      allowedMoves: nodes,
+      moveCount: 5,
+      moves: moves,
+      movesWithoutMill: 2
+    }
+    const move = new GameService().performMove(state, mockNode)
+    expect(move).toEqual(3)
+  }));
+
+  it('should return the performMove method -- DRAW', async(() => {
+    const state = {
+      turn: Color.BLUE,
+      moveType: MoveType.DRAW,
+      nodes: nodes,
+      shiftDestinations: nodes,
+      goldPlayerState: playerState,
+      bluePlayerState: playerState,
+      chosenForShift: mockNode,
+      allowedMoves: nodes,
+      moveCount: 5,
+      moves: moves,
+      movesWithoutMill: 2
+    }
+    const move = new GameService().performMove(state, mockNode)
+    expect(move).toEqual(2)
+  }));
+
+  it('should return the getPotentialNextMove method -- NORMAL', async(() => {
+    const state = {
+      turn: Color.BLUE,
+      moveType: MoveType.NORMAL,
+      nodes: nodes,
+      shiftDestinations: nodes,
+      goldPlayerState: playerState,
+      bluePlayerState: playerState,
+      chosenForShift: mockNode,
+      allowedMoves: nodes,
+      moveCount: 5,
+      moves: moves,
+      movesWithoutMill: 2
+    }
+    const expected = [{
+      "allowedMoves": [], "bluePlayerState": {
+        "color": "GOLD", "lastMovedPiece": { "color": "GRAY", "radius": 1, "x": 1, "y": 2 },
+        "piecesInDrawer": 1, "piecesOnBoard": 4, "points": 3, "previousPosition": { "color": "GRAY", "radius": 1, "x": 1, "y": 2 }
+      }, "chosenForShift": { "color": "GRAY", "radius": 1, "x": 1, "y": 2 }, "goldPlayerState": { "color": "GOLD", "lastMovedPiece": { "color": "GRAY", "radius": 1, "x": 1, "y": 2 }, "piecesInDrawer": 1, "piecesOnBoard": 4, "points": 3, "previousPosition": { "color": "GRAY", "radius": 1, "x": 1, "y": 2 } }, "moveCount": 6, "moveType": "NORMAL", "moves": [{ "color": "GOLD", "count": 2, "moveDescription": "normal", "moveType": "NORMAL" }, { "color": "BLUE", "count": 6, "moveDescription": "B2", "moveType": "NORMAL" }, { "color": "BLUE", "count": 5, "moveDescription": "B2", "moveType": "REMOVE OPPONENT" }, { "color": "BLUE", "count": 5, "moveDescription": "B2", "moveType": "REMOVE OPPONENT x2" }, { "color": "BLUE", "count": 6, "moveDescription": "B2", "moveType": "NORMAL" }], "movesWithoutMill": 3, "nodes": [{ "color": "BLUE", "radius": 2, "x": 1, "y": 2 }], "shiftDestinations": [{ "color": "BLUE", "radius": 2, "x": 1, "y": 2 }], "turn": "GOLD"
+    }];
+
+    const move = new GameService().getPotentialNextMove(state)
+    expect(move).toEqual(expected)
+  }));
+
+  it('should return the getPotentialNextMove method -- MOVE_NEARBY', async(() => {
+    const state = {
+      turn: Color.BLUE,
+      moveType: MoveType.MOVE_NEARBY,
+      nodes: nodes,
+      shiftDestinations: nodes,
+      goldPlayerState: playerState,
+      bluePlayerState: playerState,
+      chosenForShift: mockNode,
+      allowedMoves: nodes,
+      moveCount: 5,
+      moves: moves,
+      movesWithoutMill: 2
+    }
+
+    const move = new GameService().getPotentialNextMove(state)
+    expect(move).toEqual([])
+  }));
+
+  it('should return the getPotentialNextMove method -- END_GAME', async(() => {
+
+    const move = new GameService().getPotentialNextMove(mockGameState)
+    expect(move).toEqual([])
+  }));
 });
